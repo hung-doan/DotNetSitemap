@@ -4,6 +4,6 @@ branches:
   - develop
 image: Visual Studio 2017
 before_build:
-- cmd: nuget restore
+- cmd: nuget restore src\DotNetSitemapSln\DotNetSitemapSln.sln
 build:
   verbosity: minimal
