@@ -6,4 +6,5 @@ image: Visual Studio 2017
 before_build:
 - cmd: nuget restore src\DotNetSitemapSln\DotNetSitemapSln.sln
 build:
+  project: src\DotNetSitemapSln\DotNetSitemapSln.sln
   verbosity: minimal
