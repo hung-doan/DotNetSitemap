@@ -1,0 +1,7 @@
+version: 0.0.1.{build}
+branches:
+  only:
+  - develop
+image: Visual Studio 2017
+build:
+  verbosity: minimal
