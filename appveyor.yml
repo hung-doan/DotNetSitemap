@@ -1,7 +1,4 @@
 version: 0.0.1.{build}
-branches:
-  only:
-  - develop
 image: Visual Studio 2017
 before_build:
 - cmd: nuget restore src\DotNetSitemapSln\DotNetSitemapSln.sln
