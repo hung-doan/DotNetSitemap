@@ -3,5 +3,7 @@ branches:
   only:
   - develop
 image: Visual Studio 2017
+before_build:
+- cmd: nuget restore
 build:
   verbosity: minimal
