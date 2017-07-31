@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetSitemap.Core", "Core\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetSitemap.AspNet.MvcDemo", "AspNet\DotNetSitemap.AspNet.MvcDemo\DotNetSitemap.AspNet.MvcDemo.csproj", "{6AFAA150-61A1-49B0-A3EF-F0C14BEFA187}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetSitemap.Core.Test", "Core\DotNetSitemap.Core.Test\DotNetSitemap.Core.Test.csproj", "{78B500DE-C0F3-446E-8070-9CD8B2B7107E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{6AFAA150-61A1-49B0-A3EF-F0C14BEFA187}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AFAA150-61A1-49B0-A3EF-F0C14BEFA187}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AFAA150-61A1-49B0-A3EF-F0C14BEFA187}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78B500DE-C0F3-446E-8070-9CD8B2B7107E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78B500DE-C0F3-446E-8070-9CD8B2B7107E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78B500DE-C0F3-446E-8070-9CD8B2B7107E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78B500DE-C0F3-446E-8070-9CD8B2B7107E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,5 +61,6 @@ Global
 		{7CF962A4-3613-45F6-A4B8-B07B09B7BF5E} = {C892E744-2C79-4875-864F-023D529B572D}
 		{962B1C25-7BA2-4D3A-ACEC-F7FACD2916B3} = {53FE41F5-9FEA-4396-97C0-906FA6D134EE}
 		{6AFAA150-61A1-49B0-A3EF-F0C14BEFA187} = {BA0B9B67-C0E8-412A-90C5-D98289E69372}
+		{78B500DE-C0F3-446E-8070-9CD8B2B7107E} = {53FE41F5-9FEA-4396-97C0-906FA6D134EE}
 	EndGlobalSection
 EndGlobal
