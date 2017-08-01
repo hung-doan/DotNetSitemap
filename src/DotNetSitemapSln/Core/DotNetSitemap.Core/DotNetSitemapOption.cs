@@ -38,5 +38,10 @@ namespace DotNetSitemap.Core
         {
             return _dataFunc[path]();
         }
+
+        public bool IsCacheable()
+        {
+            return _cacheOption != null;
+        }
     }
 }

@@ -18,6 +18,25 @@ namespace DotNetSitemap.AspNet
 
             return new LocalFileCacheStreamFilter(inputStream, filePath, options);
         }
+
+        public bool IsCached(string filePath)
+        {
+            return File.Exists(filePath);
+        }
+
+        public bool IsExpired(string filePath, DotNetSitemapOption options)
+        {
+            var lastWrite = File.GetLastWriteTime(filePath);
+            return lastWrite.Add(options.Cache.TimeOut).CompareTo(DateTime.Now) < 0;
+        }
+
+        public void WriteCacheToStream(string filePath, Stream outputStream)
+        {
+            using (var fs = new FileStream(filePath, FileMode.Open))
+            {
+                fs.CopyTo(outputStream);
+            }
+        }
     }
     public class LocalFileCacheStreamFilter : FileStream
     {

@@ -12,17 +12,39 @@ namespace DotNetSitemap.AspNet
         public void ProcessRequest(HttpContext context)
         {
             var path = context.Request.Url.AbsolutePath.Substring(1);
-            var generator = DotNetSitemapConfig.Container.Resolve<ISiteMapGenerator>();
             var cacheProvider = DotNetSitemapConfig.Container.Resolve<ICacheProvider>();
+            var cachePath = Path.Combine(DotNetSitemapConfig.Option.Cache.Location, path);
+
+            context.Response.ContentType = "application/xml";
+
+            if (DotNetSitemapConfig.Option.IsCacheable()
+                && cacheProvider.IsCached(cachePath)
+                && !cacheProvider.IsExpired(cachePath, DotNetSitemapConfig.Option))
+            {
+                HandleCache(cachePath, context, cacheProvider);
+                return;
+            }
+            HandleRequest(path, context, cacheProvider);
+
+        }
+
+        private void HandleCache(string cachePath, HttpContext context, ICacheProvider cacheProvider)
+        {
+            cacheProvider.WriteCacheToStream(cachePath, context.Response.OutputStream);
+        }
+
+        private void HandleRequest(string path, HttpContext context, ICacheProvider cacheProvider)
+        {
+            var generator = DotNetSitemapConfig.Container.Resolve<ISiteMapGenerator>();
+
             var data = DotNetSitemapConfig.Option.GetData(path);
             var cachePath = Path.Combine(DotNetSitemapConfig.Option.Cache.Location, path);
+
             context.Response.Filter = cacheProvider.GetFilterStream(cachePath,
                 context.Response.Filter,
                 DotNetSitemapConfig.Option);
-            context.Response.StatusCode = 200;
-            context.Response.ContentType = "application/xml";
-            generator.Render(context.Response.OutputStream, data);
 
+            generator.Render(context.Response.OutputStream, data);
         }
 
         public IHttpHandler GetHttpHandler(RequestContext requestContext)
@@ -30,32 +52,4 @@ namespace DotNetSitemap.AspNet
             return this;
         }
     }
-    //public class ResponseFilter : FileStream
-    //{
-    //    private Stream _rootFilter;
-    //    public ResponseFilter(Stream rootFilter, string filePath)
-    //        : base(filePath, FileMode.Create)
-    //    {
-    //        _rootFilter = rootFilter;
-
-    //    }
-    //    public override void Write(byte[] buffer, int offset, int count)
-    //    {
-    //        base.Write(buffer, offset, count);
-    //        _rootFilter.Write(buffer, offset, count);
-
-    //    }
-
-    //    public override void Close()
-    //    {
-    //        base.Close();
-    //        _rootFilter.Close();
-    //    }
-    //    public override void Flush()
-    //    {
-    //        base.Flush();
-    //        _rootFilter.Flush();
-    //    }
-
-    //}
 }

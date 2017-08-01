@@ -11,7 +11,6 @@ namespace DotNetSitemap.Core
     {
         private static readonly DotNetSitemapOption _option;
         private static IDotNetSitemapContainer _container;
-
         
         static DotNetSitemapConfig()
         {

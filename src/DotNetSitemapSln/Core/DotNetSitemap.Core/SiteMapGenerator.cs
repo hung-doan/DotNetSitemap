@@ -36,6 +36,7 @@ namespace DotNetSitemap.Core
             }
             Write("</urlset>");
         }
+
         public void Render(Stream outputStream, SitemapXml data)
         {
             _outputStream = outputStream;
