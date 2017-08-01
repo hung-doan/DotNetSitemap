@@ -11,11 +11,13 @@ namespace DotNetSitemap.Core
         private string _xmlns = "http://www.sitemaps.org/schemas/sitemap/0.9";
         private Encoding _encoding = new System.Text.UTF8Encoding();
         private Stream _outputStream;
-        public void Render(Stream outputStream, SitemapXml data)
+        private UriBuilder _baseUriBuilder;
+        public void Render(Stream outputStream, SitemapXml data, Uri requestUri)
         {
             _outputStream = outputStream;
             var xmlVersion = "1.0";
             var xmlEncoding = "UTF-8";
+            _baseUriBuilder = new UriBuilder(requestUri.Scheme, requestUri.Host, requestUri.Port);
             Write($"<?xml version=\"{xmlVersion}\" encoding=\"{xmlEncoding}\"?>");
             if (data == null)
             {
@@ -37,7 +39,11 @@ namespace DotNetSitemap.Core
             var inputBytes = _encoding.GetBytes(input);
             _outputStream.Write(inputBytes, 0, inputBytes.Length);
         }
-
+        public string GetUrl(string loc)
+        {
+            _baseUriBuilder.Path = loc;
+            return _baseUriBuilder.ToString();
+        }
         private void RenderUrlset(UrlSet urlSet)
         {
 
@@ -46,6 +52,10 @@ namespace DotNetSitemap.Core
 
             foreach (var url in urlSet.Urls)
             {
+                if(url.Loc.IndexOf("://") < 0)
+                {
+                    url.Loc = GetUrl(url.Loc);
+                }
                 Write($"<url>");
 
                 Write($"<loc>{url.Loc}</loc>");
@@ -64,6 +74,11 @@ namespace DotNetSitemap.Core
 
             foreach (var sitemap in sitemapIndex.Sitemaps)
             {
+                if (sitemap.Loc.IndexOf("://") < 0)
+                {
+                    sitemap.Loc = GetUrl(sitemap.Loc);
+                }
+
                 Write($"<sitemap>");
 
                 Write($"<loc>{sitemap.Loc}</loc>");

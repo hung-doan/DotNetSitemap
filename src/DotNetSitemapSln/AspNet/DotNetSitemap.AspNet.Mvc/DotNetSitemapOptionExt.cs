@@ -27,11 +27,11 @@ namespace DotNetSitemap.AspNet
         {
             DotNetSitemapConfig.Option.SetCache(new SiteMapCacheOption
             {
-                TimeOut = new TimeSpan(0, 1, 0),
+                TimeOut = new TimeSpan(24, 0, 0),
                 Location = serverUtil.MapPath("~/App_Data/cache_sitemap")
             });
             ;
-            routes.Ignore(_sitemapPath);
+            routes.Ignore(cfg.GetSitemapPath());
             routes.Ignore(_sitemapIndexPath);
         }
 

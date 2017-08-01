@@ -8,7 +8,7 @@ namespace DotNetSitemap.Core
 {
     public interface ISiteMapGenerator
     {
-        void Render(Stream outputStream, SitemapXml data);
+        void Render(Stream outputStream, SitemapXml data, Uri requestUri);
         
     }
 }

@@ -32,7 +32,9 @@ namespace DotNetSitemap.NfMvc.Demo
         protected void Application_Start()
         {
             DotNetSitemapConfig.Option.Register(Server, RouteTable.Routes);
-            DotNetSitemapConfig.Option.SetDataFunc(SiteMapData);
+            DotNetSitemapConfig.Option.Cache.TimeOut = new TimeSpan(0, 1, 0);
+            DotNetSitemapConfig.Option.SetDataFunc("sitemap/product.xml",SiteMapData);
+            DotNetSitemapConfig.Option.SetDataFunc("sitemap/product2.xml", SiteMapData);
 
 
             AreaRegistration.RegisterAllAreas();

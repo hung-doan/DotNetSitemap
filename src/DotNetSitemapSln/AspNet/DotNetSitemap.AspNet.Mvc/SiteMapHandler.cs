@@ -41,9 +41,9 @@ namespace DotNetSitemap.AspNet
         private void HandleRequest(string path, HttpContext context, ICacheProvider cacheProvider)
         {
             var generator = DotNetSitemapConfig.Container.Resolve<ISiteMapGenerator>();
-
+            
             SitemapXml data = DotNetSitemapConfig.Option.GetData(path);
-            if(data = null)
+            if(data == null)
             {
                 data = new SitemapXml();
             }
@@ -69,7 +69,7 @@ namespace DotNetSitemap.AspNet
                 context.Response.Filter,
                 DotNetSitemapConfig.Option);
 
-            generator.Render(context.Response.OutputStream, data);
+            generator.Render(context.Response.OutputStream, data, context.Request.Url);
         }
 
         public IHttpHandler GetHttpHandler(RequestContext requestContext)

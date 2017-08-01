@@ -59,11 +59,11 @@ namespace DotNetSitemap.Core
         {
             _sitemapPath = path;
         }
-        public string GetSitemapPath(string path)
+        public string GetSitemapPath()
         {
             return _sitemapPath;
         }
-        public List<string> GetSitemapIndexLocs(string path)
+        public List<string> GetSitemapIndexLocs()
         {
             return _dataFunc.Where(p => p.Key != _sitemapPath).Select(p => p.Key).ToList();
         }
