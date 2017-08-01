@@ -26,10 +26,14 @@ namespace DotNetSitemap.AspNet
 
         public bool IsExpired(string filePath, DotNetSitemapOption options)
         {
-            var lastWrite = File.GetLastWriteTime(filePath);
+            var lastWrite = GetLastModifiedDate(filePath);
+
             return lastWrite.Add(options.Cache.TimeOut).CompareTo(DateTime.Now) < 0;
         }
-
+        public DateTime GetLastModifiedDate(string filePath)
+        {
+            return File.GetLastWriteTime(filePath);
+        }
         public void WriteCacheToStream(string filePath, Stream outputStream)
         {
             using (var fs = new FileStream(filePath, FileMode.Open))

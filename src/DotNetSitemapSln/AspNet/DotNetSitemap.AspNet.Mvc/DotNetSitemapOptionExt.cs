@@ -13,12 +13,20 @@ namespace DotNetSitemap.AspNet
 {
     public static class DotNetSitemapOptionExt
     {
-        private static string _sitemapName = "netsitemap";
-        private static string _sitemapIndexName = "netsitemap-index";
+        private static string _sitemapPath = "sitemap.xml";
+        private static string _sitemapIndexPath = "sitemap/*.xml";
         static DotNetSitemapOptionExt()
         {
             DotNetSitemapConfig.Container.Register<ISiteMapGenerator, SiteMapGenerator>();
             DotNetSitemapConfig.Container.Register<ICacheProvider, LocalFileCacheProvider>();
+        }
+        public static void SetSitemapPath(string path)
+        {
+            _sitemapPath = path;
+        }
+        public static void SetSitemapIndexPath(string path)
+        {
+            _sitemapIndexPath = path;
         }
         public static void Register(this DotNetSitemapOption cfg, HttpServerUtility serverUtil, RouteCollection routes)
         {
@@ -28,46 +36,8 @@ namespace DotNetSitemap.AspNet
                 Location = serverUtil.MapPath("~/App_Data/cache_sitemap")
             });
             ;
-
-            
-            string sitemapPath = null;
-            string sitemapIndexPath = null;
-            var hdlrs = ConfigurationManager.GetSection("system.webServer");
-            //foreach (HttpHandlerAction handler in hdlrs.Handlers)
-            //{
-            //    if (sitemapPath != null && sitemapIndexPath != null)
-            //    {
-            //        break;
-            //    }
-            //    foreach (PropertyInformation prop in handler.ElementInformation.Properties)
-            //    {
-            //        if (prop.Value.ToString() == "sitemap.xml")
-            //        {
-            //            sitemapPath = handler.Path;
-            //        }
-            //        if (prop.Name == "name" && (string)prop.Value == _sitemapIndexName)
-            //        {
-            //            sitemapIndexPath = handler.Path;
-            //        }
-            //    }
-            //}
-
-            if (sitemapPath == null)
-            {
-                routes.Ignore("sitemap.xml");
-            }
-            else
-            {
-                routes.Ignore(sitemapPath);
-            }
-            if (sitemapIndexPath == null)
-            {
-                routes.Ignore("*/sitemap.xml");
-            }
-            else
-            {
-                routes.Ignore(sitemapIndexPath);
-            }
+            routes.Ignore(_sitemapPath);
+            routes.Ignore(_sitemapIndexPath);
         }
 
     }

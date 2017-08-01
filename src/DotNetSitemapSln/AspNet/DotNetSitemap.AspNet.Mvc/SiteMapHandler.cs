@@ -1,5 +1,6 @@
 ﻿using DotNetSitemap.Core;
 using DotNetSitemap.Core.Cache;
+using System;
 using System.IO;
 using System.Web;
 using System.Web.Routing;
@@ -30,6 +31,9 @@ namespace DotNetSitemap.AspNet
 
         private void HandleCache(string cachePath, HttpContext context, ICacheProvider cacheProvider)
         {
+            var lastModifiedDate = cacheProvider.GetLastModifiedDate(cachePath).ToUniversalTime();
+
+            context.Response.AddHeader("Last-Modified", lastModifiedDate.ToString("r"));
             cacheProvider.WriteCacheToStream(cachePath, context.Response.OutputStream);
         }
 
