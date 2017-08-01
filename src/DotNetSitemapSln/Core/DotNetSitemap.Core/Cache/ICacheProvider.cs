@@ -10,7 +10,7 @@ namespace DotNetSitemap.Core.Cache
         Stream GetFilterStream(string cacheKey, Stream inputStream, DotNetSitemapOption options);
         void WriteCacheToStream(string cacheKey, Stream outputStream);
         bool IsCached(string cacheKey);
-        DateTime GetLastModifiedDate(string cacheKey);
+        DateTimeOffset GetLastModifiedDateUtc(string cacheKey);
         bool IsExpired(string cacheKey, DotNetSitemapOption options);
     }
 }

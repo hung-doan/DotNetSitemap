@@ -6,6 +6,11 @@ namespace DotNetSitemap.Core.Models
 {
     public class SitemapIndex
     {
-        public Sitemap Sitemap { get; set; }
+        public List<Sitemap> Sitemaps { get; set; }
+
+        public SitemapIndex()
+        {
+            Sitemaps = new List<Sitemap>();
+        }
     }
 }

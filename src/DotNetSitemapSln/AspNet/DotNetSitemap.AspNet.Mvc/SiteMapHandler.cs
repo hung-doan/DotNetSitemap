@@ -1,9 +1,11 @@
 ﻿using DotNetSitemap.Core;
 using DotNetSitemap.Core.Cache;
+using DotNetSitemap.Core.Models;
 using System;
 using System.IO;
 using System.Web;
 using System.Web.Routing;
+using System.Linq;
 
 namespace DotNetSitemap.AspNet
 {
@@ -31,8 +33,7 @@ namespace DotNetSitemap.AspNet
 
         private void HandleCache(string cachePath, HttpContext context, ICacheProvider cacheProvider)
         {
-            var lastModifiedDate = cacheProvider.GetLastModifiedDate(cachePath).ToUniversalTime();
-
+            var lastModifiedDate = cacheProvider.GetLastModifiedDateUtc(cachePath);
             context.Response.AddHeader("Last-Modified", lastModifiedDate.ToString("r"));
             cacheProvider.WriteCacheToStream(cachePath, context.Response.OutputStream);
         }
@@ -41,7 +42,27 @@ namespace DotNetSitemap.AspNet
         {
             var generator = DotNetSitemapConfig.Container.Resolve<ISiteMapGenerator>();
 
-            var data = DotNetSitemapConfig.Option.GetData(path);
+            SitemapXml data = DotNetSitemapConfig.Option.GetData(path);
+            if(data = null)
+            {
+                data = new SitemapXml();
+            }
+            if(path == DotNetSitemapConfig.Option.GetSitemapPath())
+            {
+                // If requests are send to sitemap.xml
+                // then we need to consider to render SiteMapIndex
+                var now = DateTimeOffset.UtcNow;
+                var locs = DotNetSitemapConfig.Option.GetSitemapIndexLocs();
+                foreach(var loc in locs)
+                {
+                    data.SitemapIndex.Sitemaps.Add(new Sitemap
+                    {
+                        Loc = loc,
+                        LastMod = now
+                    });
+                }
+
+            }
             var cachePath = Path.Combine(DotNetSitemapConfig.Option.Cache.Location, path);
 
             context.Response.Filter = cacheProvider.GetFilterStream(cachePath,

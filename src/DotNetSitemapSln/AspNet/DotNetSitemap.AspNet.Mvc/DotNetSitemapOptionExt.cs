@@ -13,16 +13,11 @@ namespace DotNetSitemap.AspNet
 {
     public static class DotNetSitemapOptionExt
     {
-        private static string _sitemapPath = "sitemap.xml";
         private static string _sitemapIndexPath = "sitemap/*.xml";
         static DotNetSitemapOptionExt()
         {
             DotNetSitemapConfig.Container.Register<ISiteMapGenerator, SiteMapGenerator>();
             DotNetSitemapConfig.Container.Register<ICacheProvider, LocalFileCacheProvider>();
-        }
-        public static void SetSitemapPath(string path)
-        {
-            _sitemapPath = path;
         }
         public static void SetSitemapIndexPath(string path)
         {

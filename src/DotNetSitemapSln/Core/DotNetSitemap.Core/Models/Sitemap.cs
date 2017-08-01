@@ -7,6 +7,6 @@ namespace DotNetSitemap.Core.Models
     public class Sitemap
     {
         public string Loc;          //location
-        public DateTime? LastMod;
+        public DateTimeOffset? LastMod;
     }
 }

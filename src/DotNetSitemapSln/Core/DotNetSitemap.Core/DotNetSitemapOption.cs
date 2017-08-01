@@ -5,11 +5,13 @@ using System.IO;
 using System.Text;
 using DotNetSitemap.Core.Cache;
 using System.Linq.Expressions;
+using System.Linq;
 
 namespace DotNetSitemap.Core
 {
     public class DotNetSitemapOption
     {
+        internal string _sitemapPath = "sitemap.xml";
         internal Func<SitemapXml> SitemapDataFunc;
         internal SiteMapCacheOption _cacheOption;
         Dictionary<string, Func<SitemapXml>> _dataFunc;
@@ -41,12 +43,29 @@ namespace DotNetSitemap.Core
 
         public SitemapXml GetData(string path)
         {
+            if(!_dataFunc.ContainsKey(path))
+            {
+                return null;
+            }
             return _dataFunc[path]();
         }
 
         public bool IsCacheable()
         {
             return _cacheOption != null;
+        }
+
+        public void SetSitemapPath(string path)
+        {
+            _sitemapPath = path;
+        }
+        public string GetSitemapPath(string path)
+        {
+            return _sitemapPath;
+        }
+        public List<string> GetSitemapIndexLocs(string path)
+        {
+            return _dataFunc.Where(p => p.Key != _sitemapPath).Select(p => p.Key).ToList();
         }
     }
 }

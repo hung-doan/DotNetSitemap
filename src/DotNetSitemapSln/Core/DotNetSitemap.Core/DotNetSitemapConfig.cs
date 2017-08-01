@@ -34,7 +34,7 @@ namespace DotNetSitemap.Core
         {
             _container = container;
         }
-
+        
         
     }
 }
