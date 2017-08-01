@@ -33,7 +33,7 @@ namespace DotNetSitemap.AspNet.WebFormDemo
         void Application_Start(object sender, EventArgs e)
         {
             DotNetSitemapConfig.Option.Register(Server, RouteTable.Routes);
-            DotNetSitemapConfig.Option.SetSitemapDataFunc(SiteMapData);
+            DotNetSitemapConfig.Option.SetDataFunc("sitemap.xml", SiteMapData);
 
             // Code that runs on application startup
             RouteConfig.RegisterRoutes(RouteTable.Routes);

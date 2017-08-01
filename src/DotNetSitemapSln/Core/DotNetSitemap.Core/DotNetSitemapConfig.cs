@@ -36,17 +36,6 @@ namespace DotNetSitemap.Core
             _container = container;
         }
 
-        public static SitemapXml GetSiteMapData()
-        {
-            if (Option.SitemapDataFunc == null)
-            {
-                return new SitemapXml();
-            }
-            return Option.SitemapDataFunc();
-        }
-        public static SiteMapCacheOption GetCacheOption()
-        {
-            return Option._cacheOption;
-        }
+        
     }
 }

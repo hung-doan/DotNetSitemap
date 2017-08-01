@@ -11,10 +11,11 @@ namespace DotNetSitemap.AspNet
         public bool IsReusable => true;
         public void ProcessRequest(HttpContext context)
         {
+            var path = context.Request.Url.AbsolutePath.Substring(1);
             var generator = DotNetSitemapConfig.Container.Resolve<ISiteMapGenerator>();
             var cacheProvider = DotNetSitemapConfig.Container.Resolve<ICacheProvider>();
-            var data = DotNetSitemapConfig.GetSiteMapData();
-            var cachePath = Path.Combine(DotNetSitemapConfig.Option.Cache.Location, "sitemap.xml");
+            var data = DotNetSitemapConfig.Option.GetData(path);
+            var cachePath = Path.Combine(DotNetSitemapConfig.Option.Cache.Location, path);
             context.Response.Filter = cacheProvider.GetFilterStream(cachePath,
                 context.Response.Filter,
                 DotNetSitemapConfig.Option);

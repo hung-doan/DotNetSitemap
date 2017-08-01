@@ -32,7 +32,8 @@ namespace DotNetSitemap.NfMvc.Demo
         protected void Application_Start()
         {
             DotNetSitemapConfig.Option.Register(Server, RouteTable.Routes);
-            DotNetSitemapConfig.Option.SetSitemapDataFunc(SiteMapData);
+            DotNetSitemapConfig.Option.SetDataFunc("sitemap.xml", SiteMapData);
+
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
