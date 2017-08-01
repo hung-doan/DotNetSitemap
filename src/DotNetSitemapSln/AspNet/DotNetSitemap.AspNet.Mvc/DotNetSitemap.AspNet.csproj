@@ -7,8 +7,8 @@
     <ProjectGuid>{FBBC0B9D-801B-4126-9A10-0A9C7076E5B5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DotNetSitemap.AspNet.Mvc</RootNamespace>
-    <AssemblyName>DotNetSitemap.AspNet.Mvc</AssemblyName>
+    <RootNamespace>DotNetSitemap.AspNet</RootNamespace>
+    <AssemblyName>DotNetSitemap.AspNet</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

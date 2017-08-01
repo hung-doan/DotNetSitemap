@@ -2,10 +2,9 @@
 using System;
 using System.Web.Routing;
 using DotNetSitemap.Core.Cache;
-using DotNetSitemap.AspNet.Mvc;
 using System.Web;
 
-namespace DotNetSitemap.NfMvc
+namespace DotNetSitemap.AspNet
 {
     public static class DotNetSitemapOptionExt
     {

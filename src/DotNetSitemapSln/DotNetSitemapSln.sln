@@ -9,9 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNet", "AspNet", "{BA0B9B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNetCore", "AspNetCore", "{C892E744-2C79-4875-864F-023D529B572D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetSitemap.AspNet.Mvc", "AspNet\DotNetSitemap.AspNet.Mvc\DotNetSitemap.AspNet.Mvc.csproj", "{FBBC0B9D-801B-4126-9A10-0A9C7076E5B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetSitemap.AspNet", "AspNet\DotNetSitemap.AspNet.Mvc\DotNetSitemap.AspNet.csproj", "{FBBC0B9D-801B-4126-9A10-0A9C7076E5B5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetSitemap.AspNetCore.Mvc", "AspNetCore\DotNetSitemap.AspNetCore.Mvc\DotNetSitemap.AspNetCore.Mvc.csproj", "{B05F0DE3-933F-4A37-93D4-8B1E6BA4282A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetSitemap.AspNetCore", "AspNetCore\DotNetSitemap.AspNetCore.Mvc\DotNetSitemap.AspNetCore.csproj", "{B05F0DE3-933F-4A37-93D4-8B1E6BA4282A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetSitemap.AspNetCore.MvcDemo", "AspNetCore\DotNetSitemap.AspNetCore.MvcDemo\DotNetSitemap.AspNetCore.MvcDemo.csproj", "{7CF962A4-3613-45F6-A4B8-B07B09B7BF5E}"
 EndProject
@@ -20,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetSitemap.AspNet.MvcDemo", "AspNet\DotNetSitemap.AspNet.MvcDemo\DotNetSitemap.AspNet.MvcDemo.csproj", "{6AFAA150-61A1-49B0-A3EF-F0C14BEFA187}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetSitemap.Core.Test", "Core\DotNetSitemap.Core.Test\DotNetSitemap.Core.Test.csproj", "{78B500DE-C0F3-446E-8070-9CD8B2B7107E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetSitemap.AspNet.WebFormDemo", "AspNet\DotNetSitemap.AspNet.WebFormDemo\DotNetSitemap.AspNet.WebFormDemo.csproj", "{0A812652-4C05-461D-9AB9-28C99A6937E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{78B500DE-C0F3-446E-8070-9CD8B2B7107E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78B500DE-C0F3-446E-8070-9CD8B2B7107E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78B500DE-C0F3-446E-8070-9CD8B2B7107E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A812652-4C05-461D-9AB9-28C99A6937E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A812652-4C05-461D-9AB9-28C99A6937E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A812652-4C05-461D-9AB9-28C99A6937E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A812652-4C05-461D-9AB9-28C99A6937E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,5 +68,6 @@ Global
 		{962B1C25-7BA2-4D3A-ACEC-F7FACD2916B3} = {53FE41F5-9FEA-4396-97C0-906FA6D134EE}
 		{6AFAA150-61A1-49B0-A3EF-F0C14BEFA187} = {BA0B9B67-C0E8-412A-90C5-D98289E69372}
 		{78B500DE-C0F3-446E-8070-9CD8B2B7107E} = {53FE41F5-9FEA-4396-97C0-906FA6D134EE}
+		{0A812652-4C05-461D-9AB9-28C99A6937E9} = {BA0B9B67-C0E8-412A-90C5-D98289E69372}
 	EndGlobalSection
 EndGlobal

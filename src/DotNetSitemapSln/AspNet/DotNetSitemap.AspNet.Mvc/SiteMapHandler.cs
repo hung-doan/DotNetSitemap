@@ -4,7 +4,7 @@ using System.IO;
 using System.Web;
 using System.Web.Routing;
 
-namespace DotNetSitemap.AspNet.Mvc
+namespace DotNetSitemap.AspNet
 {
     public class SiteMapHandler : IHttpHandler, IRouteHandler
     {

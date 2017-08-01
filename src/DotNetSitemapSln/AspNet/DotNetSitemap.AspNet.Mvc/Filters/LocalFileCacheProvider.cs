@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace DotNetSitemap.AspNet.Mvc
+namespace DotNetSitemap.AspNet
 {
     public class LocalFileCacheProvider : ICacheProvider
     {

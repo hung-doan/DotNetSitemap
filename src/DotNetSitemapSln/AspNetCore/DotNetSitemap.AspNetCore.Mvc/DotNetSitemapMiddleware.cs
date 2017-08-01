@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DotNetSitemap.AspNetCore.Mvc
+namespace DotNetSitemap.AspNetCore
 {
     public class DotNetSitemapMiddleware
     {
