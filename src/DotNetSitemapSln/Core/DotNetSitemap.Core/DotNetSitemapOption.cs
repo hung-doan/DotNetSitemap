@@ -25,7 +25,12 @@ namespace DotNetSitemap.Core
             _cacheOption = option;
         }
 
-        
+
+        public void SetDataFunc(Func<SitemapXml> sitemapDataFunc)
+        {
+            _dataFunc.Add("sitemap.xml", sitemapDataFunc);
+
+        }
         public void SetDataFunc(string path, Func<SitemapXml> sitemapDataFunc)
         {
             _dataFunc.Add(path, sitemapDataFunc);
