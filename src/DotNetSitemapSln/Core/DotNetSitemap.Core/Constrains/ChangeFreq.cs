@@ -12,7 +12,7 @@ namespace DotNetSitemap.Core.Constrains
         {
             return _value;
         }
-
+        public string Value => _value;
         public static readonly ChangeFreq Always = new ChangeFreq("always");
         public static readonly ChangeFreq Hourly = new ChangeFreq("hourly");
         public static readonly ChangeFreq Daily = new ChangeFreq("daily");
