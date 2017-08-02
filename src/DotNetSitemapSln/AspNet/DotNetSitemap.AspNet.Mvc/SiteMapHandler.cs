@@ -6,6 +6,7 @@ using System.IO;
 using System.Web;
 using System.Web.Routing;
 using System.Linq;
+using System.Net;
 
 namespace DotNetSitemap.AspNet
 {
@@ -43,32 +44,48 @@ namespace DotNetSitemap.AspNet
             var generator = DotNetSitemapConfig.Container.Resolve<ISiteMapGenerator>();
             
             SitemapXml data = DotNetSitemapConfig.Option.GetData(path);
-            if(data == null)
+            
+            if(data == null && path != DotNetSitemapConfig.Option.GetSitemapPath())
             {
-                data = new SitemapXml();
+                //If found no data path , then return 404
+                context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                return;
             }
+
             if(path == DotNetSitemapConfig.Option.GetSitemapPath())
             {
                 // If requests are send to sitemap.xml
                 // then we need to consider to render SiteMapIndex
-                var now = DateTimeOffset.UtcNow;
+                if (data == null)
+                {
+                    data = new SitemapXml();
+                }
+
                 var locs = DotNetSitemapConfig.Option.GetSitemapIndexLocs();
                 foreach(var loc in locs)
                 {
-                    data.SitemapIndex.Sitemaps.Add(new Sitemap
+                    var siteMapItem = new Sitemap
                     {
-                        Loc = loc,
-                        LastMod = now
-                    });
+                        Loc = loc
+                    };
+
+                    if (cacheProvider.IsCached(loc))
+                    {
+                        siteMapItem.LastMod = cacheProvider.GetLastModifiedDateUtc(loc);
+                    }
+
+                    data.SitemapIndex.Sitemaps.Add(siteMapItem);
+
                 }
 
             }
+            
             var cachePath = Path.Combine(DotNetSitemapConfig.Option.Cache.Location, path);
 
             context.Response.Filter = cacheProvider.GetFilterStream(cachePath,
                 context.Response.Filter,
                 DotNetSitemapConfig.Option);
-
+            
             generator.Render(context.Response.OutputStream, data, context.Request.Url);
         }
 

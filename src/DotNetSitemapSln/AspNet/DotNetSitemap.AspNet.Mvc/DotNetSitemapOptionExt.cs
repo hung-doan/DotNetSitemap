@@ -32,7 +32,8 @@ namespace DotNetSitemap.AspNet
             });
             ;
             routes.Ignore(cfg.GetSitemapPath());
-            routes.Ignore(_sitemapIndexPath);
+            routes.Ignore("{*sitemapIndexUrl}", new { sitemapIndexUrl = _sitemapIndexPath.Replace(".", @"\.").Replace("*", ".*") });
+            
         }
 
     }

@@ -2,4 +2,4 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/src/DotNetSitemapSln/AspNet/DotNetSitemap.AspNet.MvcDemo/App_Data/cache_sitemap/sitemap
+/src/DotNetSitemapSln/AspNet/DotNetSitemap.AspNet.MvcDemo/App_Data
