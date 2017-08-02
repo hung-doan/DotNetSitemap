@@ -2,6 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
+    <Version>0.0.1</Version>
+    <Authors>hung.doantan@gmail.com</Authors>
+    <Company />
+    <Description>sitemap.xml for ASP .NET application</Description>
+    <PackageLicenseUrl>http://opensource.org/licenses/MS-PL</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/hung-doan/DotNetSitemap</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/hung-doan/DotNetSitemap</RepositoryUrl>
   </PropertyGroup>
 
 </Project>
