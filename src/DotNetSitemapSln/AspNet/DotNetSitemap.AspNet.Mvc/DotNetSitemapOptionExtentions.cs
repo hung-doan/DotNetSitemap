@@ -11,10 +11,10 @@ using System.Collections.Generic;
 
 namespace DotNetSitemap.AspNet
 {
-    public static class DotNetSitemapOptionExt
+    public static class DotNetSitemapOptionExtentions
     {
         private static string _sitemapIndexPath = "sitemap/*.xml";
-        static DotNetSitemapOptionExt()
+        static DotNetSitemapOptionExtentions()
         {
             DotNetSitemapConfig.Container.Register<ISiteMapGenerator, SiteMapGenerator>();
             DotNetSitemapConfig.Container.Register<ICacheProvider, LocalFileCacheProvider>();
