@@ -3,15 +3,14 @@
   <metadata>
     <id>$id$</id>
     <version>$version$</version>
-    <title>$title$</title>
     <authors>$author$</authors>
-    <owners>$author$</owners>
+    <owners>$owners$</owners>
     <licenseUrl>http://opensource.org/licenses/MS-PL</licenseUrl>
     <projectUrl>https://github.com/hung-doan/DotNetSitemap</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes></releaseNotes>
-    <copyright>Copyright 2017</copyright>
-    <tags>sitemap.xml</tags>
+    <releaseNotes>Beta version for dotnetsitemap</releaseNotes>
+    <copyright>$copyright$</copyright>
+    <tags>sitemap.xml aspnet aspnetcore netstandard</tags>
   </metadata>
 </package>
