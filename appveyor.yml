@@ -5,3 +5,10 @@ before_build:
 build:
   project: src\DotNetSitemapSln\DotNetSitemapSln.sln
   verbosity: minimal
+
+artifacts:
+ - path: src\DotNetSitemapSln\AspNet\DotNetSitemap.AspNet\bin\$(configuration)\*.dll
+   name: DotNetSitemap.AspNet
+
+ - path: src\DotNetSitemapSln\AspNetCore\DotNetSitemap.AspNetCore\bin\$(configuration)\*.dll
+   name: DotNetSitemap.AspNetCore
