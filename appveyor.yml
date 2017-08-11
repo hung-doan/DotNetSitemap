@@ -9,6 +9,8 @@ build:
 artifacts:
  - path: src\DotNetSitemapSln\AspNet\DotNetSitemap.AspNet\bin\$(configuration)\*.dll
    name: DotNetSitemap.AspNet
+   type: zip
 
  - path: src\DotNetSitemapSln\AspNetCore\DotNetSitemap.AspNetCore\bin\$(configuration)\*.dll
    name: DotNetSitemap.AspNetCore
+   type: zip
