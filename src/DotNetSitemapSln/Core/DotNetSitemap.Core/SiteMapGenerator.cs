@@ -8,7 +8,7 @@ using DotNetSitemap.Core.Models.SingleSitemap;
 
 namespace DotNetSitemap.Core
 {
-    public class SiteMapGenerator : ISiteMapGenerator
+    public class SitemapGenerator : ISitemapGenerator
     {
         private string _xmlVersion = "1.0";
         private string _xmlEncoding = "UTF-8";

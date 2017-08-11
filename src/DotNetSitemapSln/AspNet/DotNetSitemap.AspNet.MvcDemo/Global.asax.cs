@@ -12,29 +12,24 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using DotNetSitemap.Core.Models.SingleSitemap;
 
-namespace DotNetSitemap.NfMvc.Demo
+namespace DotNetSitemap.AspNet.MvcDemo
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        private ISitemapData SiteMapData()
-        {
-            var data = new UrlSet();
-            data.Urls = new List<Url> {
-                new Url{
-                    Loc = "http://abc.com",
-                    ChangeFreq = ChangeFreq.Weekly,
-                    LastMod = DateTime.Today,
-                    Priority = 0.2
-                }
-            };
-            return data;
-        }
         protected void Application_Start()
         {
             DotNetSitemapConfig.Option.Register(Server, RouteTable.Routes);
-            DotNetSitemapConfig.Option.Cache.TimeOut = new TimeSpan(0, 1, 0);
-            DotNetSitemapConfig.Option.SetDataFunc("sitemap/product.xml",SiteMapData);
-            DotNetSitemapConfig.Option.SetDataFunc("sitemap/category.xml", SiteMapData);
+
+            DotNetSitemapConfig.Option.SetDataFunc("sitemap.xml", SitemapDataBuilder.GetAllSitemapData);
+
+            //DotNetSitemapConfig.Option.SetDataFunc("sitemap-product-detail.xml", SitemapDataBuilder.GetProductDetailSitemapData);
+            //DotNetSitemapConfig.Option.SetDataFunc("sitemap-product-list.xml", SitemapDataBuilder.GetProductListSitemapData);
+
+            ////Setting up cache
+            //DotNetSitemapConfig.Option.Cache.TimeOut = new TimeSpan(0, 1, 0);
+            //DotNetSitemapConfig.Option.Cache.Location = Server.MapPath("~/App_Data/cache_sitemap");
+
+
 
 
             AreaRegistration.RegisterAllAreas();

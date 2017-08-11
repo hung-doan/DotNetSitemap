@@ -11,7 +11,7 @@ using DotNetSitemap.Core.Models.MultipleSitemap;
 
 namespace DotNetSitemap.AspNet
 {
-    public class SiteMapHandler : IHttpHandler, IRouteHandler
+    public class SitemapHandler : IHttpHandler, IRouteHandler
     {
         public bool IsReusable => true;
         public void ProcessRequest(HttpContext context)
@@ -42,7 +42,7 @@ namespace DotNetSitemap.AspNet
 
         private void HandleRequest(string path, HttpContext context, ICacheProvider cacheProvider)
         {
-            var generator = DotNetSitemapConfig.Container.Resolve<ISiteMapGenerator>();
+            var generator = DotNetSitemapConfig.Container.Resolve<ISitemapGenerator>();
 
             ISitemapData data = DotNetSitemapConfig.Option.GetData(path);
 

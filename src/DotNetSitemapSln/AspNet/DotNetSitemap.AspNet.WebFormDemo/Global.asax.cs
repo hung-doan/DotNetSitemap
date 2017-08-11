@@ -16,25 +16,9 @@ namespace DotNetSitemap.AspNet.WebFormDemo
 {
     public class Global : HttpApplication
     {
-        private SitemapXml SiteMapData()
-        {
-            var data = new SitemapXml();
-            data.UrlSet = new UrlSet();
-            data.UrlSet.Urls = new List<Url> {
-                new Url{
-                    Loc = "http://abc.com",
-                    ChangeFreq = ChangeFreq.Weekly,
-                    LastMod = DateTime.Today,
-                    Priority = 0.2
-                }
-            };
-            return data;
-        }
-
+        
         void Application_Start(object sender, EventArgs e)
         {
-            DotNetSitemapConfig.Option.Register(Server, RouteTable.Routes);
-            DotNetSitemapConfig.Option.SetDataFunc("sitemap.xml", SiteMapData);
 
             // Code that runs on application startup
             RouteConfig.RegisterRoutes(RouteTable.Routes);

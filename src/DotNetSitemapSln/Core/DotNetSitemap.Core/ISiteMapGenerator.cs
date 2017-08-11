@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DotNetSitemap.Core
 {
-    public interface ISiteMapGenerator
+    public interface ISitemapGenerator
     {
         void Render(ISitemapData data, Stream outputStream, Uri requestUri);
         

@@ -21,23 +21,34 @@ namespace DotNetSitemap.Core.Models.SingleSitemap
 
             // Getting XML Namespace of Extentions
             var extentionXmlNs = Urls.SelectMany(p => p.Extentions.Select(ext
-                => $"xmlns:{ext.GetXmlNsPrefix()}\"{ext.GetXmlNsUri()}\"")
+                => $"xmlns:{ext.GetXmlNsPrefix()}=\"{ext.GetXmlNsUri()}\"")
                 ).Distinct().ToList();
 
-            var extentionXmlNsAttr = string.Join(" ", extentionXmlNs);
+            string extentionXmlNsAttr = "";
+            if (extentionXmlNs.Any())
+            {
+                extentionXmlNsAttr = " " + string.Join(" ", extentionXmlNs);
+            }
 
-            Write($"<urlset xmlns=\"{_xmlns}\" {extentionXmlNsAttr}>");
+            Write($"<urlset xmlns=\"{_xmlns}\"{extentionXmlNsAttr}>");
             foreach (var url in Urls)
             {
-                if (UriHelpers.IsAbsoluteUrl(url.Loc))
+                if (!UriHelpers.IsAbsoluteUrl(url.Loc))
                 {
                     url.Loc = UriHelpers.BuildUrl(requestUri, url.Loc);
                 }
+                Write($"<url>");
 
                 Write($"<loc>{url.Loc}</loc>");
                 if (url.LastMod != null) Write($"<lastmod>{url.LastMod.Value.ToUniversalTime().ToString("O")}</lastmod>");
                 if (url.ChangeFreq != null) Write($"<changefreq>{url.ChangeFreq.ToString()}</changefreq>");
                 if (url.Priority != null) Write($"<priority>{url.Priority}</priority>");
+                
+                //Start to render extentions
+                foreach(var extention in url.Extentions)
+                {
+                    extention.Render(outputStream, requestUri);
+                }
 
                 Write($"</url>");
             }

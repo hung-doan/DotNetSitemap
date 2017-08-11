@@ -48,8 +48,8 @@
   <ItemGroup>
     <Compile Include="Constrains\ChangeFreqTest.cs" />
     <Compile Include="DotNetSitemapConfigTest.cs" />
-    <Compile Include="SiteMapGeneratorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SitemapGeneratorTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace DotNetSitemap.NfMvc.Demo
+namespace DotNetSitemap.AspNet.MvcDemo
 {
     public class RouteConfig
     {
@@ -13,7 +13,6 @@ namespace DotNetSitemap.NfMvc.Demo
         {
             
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            //routes.Add(new Route("sitemap-2.xml", new SiteMapHandler()));
 
             routes.MapRoute(
                 name: "Default",

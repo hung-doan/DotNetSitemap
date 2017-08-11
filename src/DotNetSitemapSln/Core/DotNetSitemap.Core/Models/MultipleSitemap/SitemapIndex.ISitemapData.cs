@@ -19,7 +19,7 @@ namespace DotNetSitemap.Core.Models.MultipleSitemap
 
             foreach (var sitemap in Sitemaps)
             {
-                if (UriHelpers.IsAbsoluteUrl(sitemap.Loc))
+                if (!UriHelpers.IsAbsoluteUrl(sitemap.Loc))
                 {
                     sitemap.Loc = UriHelpers.BuildUrl(requestUri, sitemap.Loc);
                 }

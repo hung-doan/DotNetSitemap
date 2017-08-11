@@ -28,7 +28,7 @@ namespace DotNetSitemap.AspNet
         {
             var lastWrite = GetLastModifiedDateUtc(filePath);
 
-            return lastWrite.Add(options.Cache.TimeOut).CompareTo(DateTimeOffset.UtcNow) < 0;
+            return lastWrite.Add(options.Cache.TimeOut.Value).CompareTo(DateTimeOffset.UtcNow) < 0;
         }
         public DateTimeOffset GetLastModifiedDateUtc(string filePath)
         {

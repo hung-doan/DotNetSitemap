@@ -13,26 +13,23 @@ namespace DotNetSitemap.AspNet
 {
     public static class DotNetSitemapOptionExtentions
     {
-        private static string _sitemapIndexPath = "sitemap/*.xml";
+        
         static DotNetSitemapOptionExtentions()
         {
-            DotNetSitemapConfig.Container.Register<ISiteMapGenerator, SiteMapGenerator>();
+            DotNetSitemapConfig.Container.Register<ISitemapGenerator, SitemapGenerator>();
             DotNetSitemapConfig.Container.Register<ICacheProvider, LocalFileCacheProvider>();
         }
-        public static void SetSitemapIndexPath(string path)
-        {
-            _sitemapIndexPath = path;
-        }
+        
         public static void Register(this DotNetSitemapOption cfg, HttpServerUtility serverUtil, RouteCollection routes)
         {
-            DotNetSitemapConfig.Option.SetCache(new SiteMapCacheOption
+            DotNetSitemapConfig.Option.SetCache(new SitemapCacheOption
             {
-                TimeOut = new TimeSpan(24, 0, 0),
+                TimeOut = null,
                 Location = serverUtil.MapPath("~/App_Data/cache_sitemap")
             });
             ;
             routes.Ignore(cfg.GetSitemapPath());
-            routes.Ignore("{*sitemapIndexUrl}", new { sitemapIndexUrl = _sitemapIndexPath.Replace(".", @"\.").Replace("*", ".*") });
+            routes.Ignore("{*sitemapIndexUrl}", new { sitemapIndexUrl = cfg.GetSitemapIndexPath().Replace(".", @"\.").Replace("*", ".*") });
             
         }
 
