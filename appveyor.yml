@@ -6,11 +6,11 @@ build:
   project: src\DotNetSitemapSln\DotNetSitemapSln.sln
   verbosity: minimal
 
+after_build:
+- cmd: 7z a DotNetSitemap.AspNet.zip src\DotNetSitemapSln\AspNet\DotNetSitemap.AspNet\bin\$(configuration)\*.dll
 artifacts:
- - path: src\DotNetSitemapSln\AspNet\DotNetSitemap.AspNet\bin\$(configuration)\*.dll
-   name: DotNetSitemap.AspNet
-   type: zip
-
- - path: src\DotNetSitemapSln\AspNetCore\DotNetSitemap.AspNetCore\bin\$(configuration)\*.dll
-   name: DotNetSitemap.AspNetCore
-   type: zip
+- path: DotNetSitemap.AspNet.zip
+  name: DotNetSitemap.AspNet
+- path: src\DotNetSitemapSln\AspNetCore\DotNetSitemap.AspNetCore\bin\$(configuration)\*.dll
+  name: DotNetSitemap.AspNetCore
+  type: zip
