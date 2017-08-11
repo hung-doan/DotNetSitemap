@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Models\MultipleSitemap\SitemapIndex.ISitemapData.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="System.Xml">
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Xml.dll</HintPath>
     </Reference>

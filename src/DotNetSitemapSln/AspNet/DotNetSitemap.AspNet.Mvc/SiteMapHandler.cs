@@ -43,27 +43,32 @@ namespace DotNetSitemap.AspNet
         private void HandleRequest(string path, HttpContext context, ICacheProvider cacheProvider)
         {
             var generator = DotNetSitemapConfig.Container.Resolve<ISiteMapGenerator>();
-            
-            SitemapXml data = DotNetSitemapConfig.Option.GetData(path);
-            
-            if(data == null && path != DotNetSitemapConfig.Option.GetSitemapPath())
-            {
-                //If found no data path , then return 404
-                context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-                return;
-            }
 
-            if(path == DotNetSitemapConfig.Option.GetSitemapPath())
+            ISitemapData data = DotNetSitemapConfig.Option.GetData(path);
+
+            if (data == null)
             {
-                // If requests are send to sitemap.xml
-                // then we need to consider to render SiteMapIndex
-                if (data == null)
+                // Looking for data function, if there is no data function then return 404
+                // If this is not sitemap.xml then return 404
+                if (path != DotNetSitemapConfig.Option.GetSitemapPath())
                 {
-                    data = new SitemapXml();
+                    context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                    return;
                 }
 
+                // If this is sitemap.xml
+                var siteMapIndex = new SitemapIndex();
                 var locs = DotNetSitemapConfig.Option.GetSitemapIndexLocs();
-                foreach(var loc in locs)
+
+                // Looking for sitemap index,
+                // If there is no sitemap index then return 404
+                if(!locs.Any())
+                {
+                    context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                    return;
+                }
+
+                foreach (var loc in locs)
                 {
                     var siteMapItem = new Sitemap
                     {
@@ -75,19 +80,20 @@ namespace DotNetSitemap.AspNet
                         siteMapItem.LastMod = cacheProvider.GetLastModifiedDateUtc(loc);
                     }
 
-                    data.SitemapIndex.Sitemaps.Add(siteMapItem);
+                    siteMapIndex.Sitemaps.Add(siteMapItem);
 
                 }
 
+                data = siteMapIndex;
             }
-            
+
             var cachePath = Path.Combine(DotNetSitemapConfig.Option.Cache.Location, path);
 
             context.Response.Filter = cacheProvider.GetFilterStream(cachePath,
                 context.Response.Filter,
                 DotNetSitemapConfig.Option);
-            
-            generator.Render(context.Response.OutputStream, data, context.Request.Url);
+
+            generator.Render(data, context.Response.OutputStream, context.Request.Url);
         }
 
         public IHttpHandler GetHttpHandler(RequestContext requestContext)

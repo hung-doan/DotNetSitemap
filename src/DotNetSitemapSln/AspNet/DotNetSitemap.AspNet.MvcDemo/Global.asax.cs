@@ -16,11 +16,10 @@ namespace DotNetSitemap.NfMvc.Demo
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        private SitemapXml SiteMapData()
+        private ISitemapData SiteMapData()
         {
-            var data = new SitemapXml();
-            data.UrlSet = new UrlSet();
-            data.UrlSet.Urls = new List<Url> {
+            var data = new UrlSet();
+            data.Urls = new List<Url> {
                 new Url{
                     Loc = "http://abc.com",
                     ChangeFreq = ChangeFreq.Weekly,

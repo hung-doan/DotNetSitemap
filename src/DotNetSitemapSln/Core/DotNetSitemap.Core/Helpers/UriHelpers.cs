@@ -6,7 +6,7 @@ namespace DotNetSitemap.Core.Helpers
 {
     public class UriHelpers
     {
-        public static  string BuildUrl(Uri baseUri, string path)
+        public static string BuildUrl(Uri baseUri, string path)
         {
             var builder = new UriBuilder(baseUri.Scheme, baseUri.Host, baseUri.Port)
             {
@@ -14,6 +14,11 @@ namespace DotNetSitemap.Core.Helpers
             };
             return builder.ToString();
 
+        }
+
+        public static bool IsAbsoluteUrl(string url)
+        {
+            return Uri.IsWellFormedUriString(url, UriKind.Absolute);
         }
     }
 }

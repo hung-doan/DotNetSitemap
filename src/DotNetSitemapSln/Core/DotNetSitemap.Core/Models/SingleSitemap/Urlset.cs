@@ -4,7 +4,7 @@ using System.IO;
 
 namespace DotNetSitemap.Core.Models.SingleSitemap
 {
-    public class UrlSet : ISitemapData
+    public partial class UrlSet
     {
         public List<Url> Urls;
 
@@ -13,9 +13,5 @@ namespace DotNetSitemap.Core.Models.SingleSitemap
             Urls = new List<Url>();
         }
 
-        public void Render(Stream outputStream, Uri requestUri)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

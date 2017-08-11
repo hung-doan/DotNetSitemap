@@ -12,14 +12,14 @@ namespace DotNetSitemap.Core
     public class DotNetSitemapOption
     {
         internal string _sitemapPath = "sitemap.xml";
-        internal Func<SitemapXml> SitemapDataFunc;
+        internal Func<ISitemapData> SitemapDataFunc;
         internal SiteMapCacheOption _cacheOption;
-        Dictionary<string, Func<SitemapXml>> _dataFunc;
+        Dictionary<string, Func<ISitemapData>> _dataFunc;
         public DotNetSitemapOption()
         {
             SitemapDataFunc = null;
             _cacheOption = null;
-            _dataFunc = new Dictionary<string, Func<SitemapXml>>();
+            _dataFunc = new Dictionary<string, Func<ISitemapData>>();
         }
         public SiteMapCacheOption Cache => _cacheOption;
         public void SetCache(SiteMapCacheOption option)
@@ -28,22 +28,47 @@ namespace DotNetSitemap.Core
         }
 
 
-        public void SetDataFunc(Func<SitemapXml> sitemapDataFunc)
+        public void SetDataFunc(Func<ISitemapData> sitemapDataFunc)
         {
             _dataFunc.Add("sitemap.xml", sitemapDataFunc);
 
         }
-        public void SetDataFunc(string path, Func<SitemapXml> sitemapDataFunc)
+        public void SetDataFunc(string path, Func<ISitemapData> sitemapDataFunc)
         {
+            if (!DataFuncPathIsValid(path))
+            {
+                throw new Exception("Path is not valid. DataFunc Path must be a relative path. " +
+                    "Path must not start with \\ or / or .");
+            }
             _dataFunc.Add(path, sitemapDataFunc);
+
 
         }
 
-      
-
-        public SitemapXml GetData(string path)
+        /// <summary>
+        /// path do not start with '/' or '\' or '.'
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        private bool DataFuncPathIsValid(string path)
         {
-            if(!_dataFunc.ContainsKey(path))
+            if (string.IsNullOrEmpty(path))
+            {
+                return false;
+            }
+
+            if (path[0] == '/'
+                || path[0] == '\\'
+                || path[0] == '.')
+            {
+                return false;
+            }
+
+            return true;
+        }
+        public ISitemapData GetData(string path)
+        {
+            if (!_dataFunc.ContainsKey(path))
             {
                 return null;
             }
