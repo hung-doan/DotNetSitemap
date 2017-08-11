@@ -19,7 +19,8 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DotNetSitemap.AspNetCore.Mvc\DotNetSitemap.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\Core\DotNetSitemap.Core\DotNetSitemap.Core.csproj" />
+    <ProjectReference Include="..\DotNetSitemap.AspNetCore\DotNetSitemap.AspNetCore.csproj" />
   </ItemGroup>
 
 </Project>

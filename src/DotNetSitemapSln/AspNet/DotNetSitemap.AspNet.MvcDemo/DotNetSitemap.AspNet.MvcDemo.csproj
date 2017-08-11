@@ -213,7 +213,7 @@
       <Project>{962b1c25-7ba2-4d3a-acec-f7facd2916b3}</Project>
       <Name>DotNetSitemap.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DotNetSitemap.AspNet.Mvc\DotNetSitemap.AspNet.csproj">
+    <ProjectReference Include="..\DotNetSitemap.AspNet\DotNetSitemap.AspNet.csproj">
       <Project>{fbbc0b9d-801b-4126-9a10-0a9c7076e5b5}</Project>
       <Name>DotNetSitemap.AspNet</Name>
     </ProjectReference>
