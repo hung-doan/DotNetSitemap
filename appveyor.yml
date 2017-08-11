@@ -7,7 +7,7 @@ build:
   verbosity: minimal
 
 after_build:
-- cmd: 7z a DotNetSitemap.AspNet.zip src\DotNetSitemapSln\AspNet\DotNetSitemap.AspNet\bin\$(configuration)\*.dll
+- cmd: 7z a DotNetSitemap.AspNet.zip src\DotNetSitemapSln\AspNet\DotNetSitemap.AspNet\bin\%CONFIGURATION%\*.dll
 artifacts:
 - path: DotNetSitemap.AspNet.zip
   name: DotNetSitemap.AspNet
