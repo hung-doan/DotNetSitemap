@@ -11,4 +11,15 @@
     <RepositoryUrl>https://github.com/hung-doan/DotNetSitemap</RepositoryUrl>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\SitemapExtentions\Google\News\" />
+    <Folder Include="Models\SitemapExtentions\Google\Video\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Xml">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Xml.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

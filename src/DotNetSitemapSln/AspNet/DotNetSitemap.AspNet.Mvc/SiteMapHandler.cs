@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Routing;
 using System.Linq;
 using System.Net;
+using DotNetSitemap.Core.Models.MultipleSitemap;
 
 namespace DotNetSitemap.AspNet
 {

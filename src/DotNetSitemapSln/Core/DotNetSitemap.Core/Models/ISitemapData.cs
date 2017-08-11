@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace DotNetSitemap.Core.Models
 {
-    public class Sitemap
+    public interface ISitemapData
     {
-        public string Loc;          //location
-        public DateTimeOffset? LastMod;
+        void Render(Stream outputStream, Uri requestUri);
     }
 }

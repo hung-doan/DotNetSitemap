@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using DotNetSitemap.Core.Models.SingleSitemap;
 
 namespace DotNetSitemap.NfMvc.Demo
 {

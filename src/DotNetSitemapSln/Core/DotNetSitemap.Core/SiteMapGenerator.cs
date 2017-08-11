@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using DotNetSitemap.Core.Models.MultipleSitemap;
+using DotNetSitemap.Core.Models.SingleSitemap;
 
 namespace DotNetSitemap.Core
 {
