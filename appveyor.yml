@@ -12,6 +12,6 @@ after_build:
 - cmd: 7z a DotNetSitemap.AspNetCore.zip src\DotNetSitemapSln\AspNetCore\DotNetSitemap.AspNetCore\bin\%CONFIGURATION%\**\*.dll
 artifacts:
 - path: DotNetSitemap.AspNet.zip
-  name: DotNetSitemap.AspNet
+  name: DotNetSitemap.AspNet.dll
 - path: DotNetSitemap.AspNetCore.zip
-  name: DotNetSitemap.AspNetCore
+  name: DotNetSitemap.AspNetCore.dll
