@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DotNetSitemap.Core.Services;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,23 +8,23 @@ using System.Threading.Tasks;
 
 namespace DotNetSitemap.AspNetCore
 {
-    public class DotNetSitemapMiddleware
+    internal class DotNetSitemapMiddleware
     {
-        private readonly RequestDelegate _next;
-
-        public DotNetSitemapMiddleware(RequestDelegate next)
+        public static void MapSitemap(IApplicationBuilder app)
         {
-            _next = next;
+            app.Run(async context =>
+            {
+                
+                await context.Response.WriteAsync("Returning from Map");
+            });
         }
 
-        public Task Invoke(HttpContext context)
+        public static void MapSitemapIndex(IApplicationBuilder app)
         {
-            if(false)
+            app.Run(async context =>
             {
-                return null;
-            }
-            // Call the next delegate/middleware in the pipeline
-            return this._next(context);
+                await context.Response.WriteAsync("Returning from Map");
+            });
         }
     }
 }

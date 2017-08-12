@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DotNetSitemap.Core.Models.SitemapOptions;
+using System;
 using System.IO;
 
 namespace DotNetSitemap.Core.Models.SitemapExtentions
@@ -23,7 +24,7 @@ namespace DotNetSitemap.Core.Models.SitemapExtentions
         /// Render data to the Http response stream
         /// </summary>
         /// <param name="outputStream">Http Response output stream</param>
-        /// <param name="requestUri">HTTP Request uri</param>
-        void Render(Stream outputStream, Uri requestUri);
+        /// <param name="requestUrl">HTTP Request uri</param>
+        void Render(Stream outputStream, RequestUrl requestUrl);
     }
 }

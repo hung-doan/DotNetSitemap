@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Web.Configuration;
 using System.Linq;
 using System.Collections.Generic;
+using DotNetSitemap.Core.Services;
 
 namespace DotNetSitemap.AspNet
 {
@@ -18,6 +19,7 @@ namespace DotNetSitemap.AspNet
         {
             DotNetSitemapConfig.Container.Register<ISitemapGenerator, SitemapGenerator>();
             DotNetSitemapConfig.Container.Register<ICacheProvider, LocalFileCacheProvider>();
+            DotNetSitemapConfig.Container.Register<ISitemapHttpContextService, SitemapHttpContextService>();
         }
         
         public static void Register(this DotNetSitemapOption cfg, HttpServerUtility serverUtil, RouteCollection routes)

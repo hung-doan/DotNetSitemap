@@ -5,12 +5,10 @@ using DotNetSitemap.Core.Models.SitemapExtentions.Google.Image;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
-namespace DotNetSitemap.AspNet.MvcDemo
+namespace DotNetSitemap.Sample
 {
-    public class SitemapDataBuilder
+    public class SampleSitemapDataBuilder
     {
         public static ISitemapData GetAllSitemapData()
         {
@@ -37,22 +35,22 @@ namespace DotNetSitemap.AspNet.MvcDemo
 
             // Use helper to gen url's loc
             #region implement
-            var helper = new UrlHelper(HttpContext.Current.Request.RequestContext);
-            result.Urls.Add(new Url
-            {
-                Loc = helper.Action("List", "Product", new { id = 1 }),
-                ChangeFreq = ChangeFreq.Daily,
-                LastMod = DateTimeOffset.Now.AddHours(1),
-                Priority = 0.5
-            });
+            //var helper = new UrlHelper(HttpContext.Current.Request.RequestContext);
+            //result.Urls.Add(new Url
+            //{
+            //    Loc = helper.Action("List", "Product", new { id = 1 }),
+            //    ChangeFreq = ChangeFreq.Daily,
+            //    LastMod = DateTimeOffset.Now.AddHours(1),
+            //    Priority = 0.5
+            //});
 
-            result.Urls.Add(new Url
-            {
-                Loc = helper.Action("List", "Product", new { id = 2 }),
-                ChangeFreq = ChangeFreq.Weekly,
-                LastMod = DateTimeOffset.Now.AddHours(2),
-                Priority = 0.6
-            });
+            //result.Urls.Add(new Url
+            //{
+            //    Loc = helper.Action("List", "Product", new { id = 2 }),
+            //    ChangeFreq = ChangeFreq.Weekly,
+            //    LastMod = DateTimeOffset.Now.AddHours(2),
+            //    Priority = 0.6
+            //});
             #endregion implement
 
             // Use google image extention
@@ -60,7 +58,7 @@ namespace DotNetSitemap.AspNet.MvcDemo
             #region implement
             var urlWithExtention = new Url
             {
-                Loc = helper.Action("List", "Product", new { id = 999 }),
+                Loc = "Product/List/999",//helper.Action("List", "Product", new { id = 999 }),
                 ChangeFreq = ChangeFreq.Weekly,
                 LastMod = DateTimeOffset.Now.AddHours(2),
                 Priority = 0.6
@@ -125,31 +123,31 @@ namespace DotNetSitemap.AspNet.MvcDemo
         public static ISitemapData GetProductListSitemapData()
         {
             // Use can use UrlHelper to generate url
-            var helper = new UrlHelper(HttpContext.Current.Request.RequestContext);
             var result = new UrlSet();
-            result.Urls.Add(new Url
-            {
-                Loc = helper.Action("List", "Product", new { id = 1 }),
-                ChangeFreq = ChangeFreq.Daily,
-                LastMod = DateTimeOffset.Now.AddHours(1),
-                Priority = 0.5
-            });
+            //var helper = new UrlHelper(HttpContext.Current.Request.RequestContext);
+            //result.Urls.Add(new Url
+            //{
+            //    Loc = helper.Action("List", "Product", new { id = 1 }),
+            //    ChangeFreq = ChangeFreq.Daily,
+            //    LastMod = DateTimeOffset.Now.AddHours(1),
+            //    Priority = 0.5
+            //});
 
-            result.Urls.Add(new Url
-            {
-                Loc = helper.Action("List", "Product", new { id = 2 }),
-                ChangeFreq = ChangeFreq.Weekly,
-                LastMod = DateTimeOffset.Now.AddHours(2),
-                Priority = 0.6
-            });
+            //result.Urls.Add(new Url
+            //{
+            //    Loc = helper.Action("List", "Product", new { id = 2 }),
+            //    ChangeFreq = ChangeFreq.Weekly,
+            //    LastMod = DateTimeOffset.Now.AddHours(2),
+            //    Priority = 0.6
+            //});
 
-            result.Urls.Add(new Url
-            {
-                Loc = helper.Action("List", "Product", new { id = 3 }),
-                ChangeFreq = ChangeFreq.Monthly,
-                LastMod = DateTimeOffset.Now.AddHours(3),
-                Priority = 0.7
-            });
+            //result.Urls.Add(new Url
+            //{
+            //    Loc = helper.Action("List", "Product", new { id = 3 }),
+            //    ChangeFreq = ChangeFreq.Monthly,
+            //    LastMod = DateTimeOffset.Now.AddHours(3),
+            //    Priority = 0.7
+            //});
 
             return result;
         }

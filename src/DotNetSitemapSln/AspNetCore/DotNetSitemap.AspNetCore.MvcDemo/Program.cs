@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 
-namespace DotNetSitemap.NcMvc.Demo
+namespace DotNetSitemap.AspNetCore.MvcDemo
 {
     public class Program
     {

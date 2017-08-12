@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using DotNetSitemap.Core.Models.MultipleSitemap;
 using DotNetSitemap.Core.Models.SingleSitemap;
+using DotNetSitemap.Core.Models.SitemapOptions;
 
 namespace DotNetSitemap.Core
 {
@@ -15,11 +16,11 @@ namespace DotNetSitemap.Core
         private Encoding _encoding = new UTF8Encoding();
         private Stream _outputStream;
 
-        public void Render(ISitemapData data, Stream outputStream, Uri requestUri)
+        public void Render(ISitemapData data, Stream outputStream, RequestUrl requestUrl)
         {
             _outputStream = outputStream;
             Write($"<?xml version=\"{_xmlVersion}\" encoding=\"{_xmlEncoding}\"?>");
-            data.Render(outputStream, requestUri);
+            data.Render(outputStream, requestUrl);
         }
 
         private void Write(string input)

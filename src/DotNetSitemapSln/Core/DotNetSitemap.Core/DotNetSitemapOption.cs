@@ -65,6 +65,14 @@ namespace DotNetSitemap.Core
             return _dataFunc[path]();
         }
 
+        /// <summary>
+        /// Get all registered function path
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetAllDataFuncPaths()
+        {
+            return _dataFunc.Select(p=>p.Key).ToList();
+        }
         public bool IsCacheable()
         {
             return _cacheOption != null && _cacheOption.TimeOut != null;

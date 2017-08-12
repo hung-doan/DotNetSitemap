@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:2091/",
+      "applicationUrl": "http://localhost:7470/",
       "sslPort": 0
     }
   },
@@ -15,13 +15,13 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "DotNetSitemap.NcMvc.Demo": {
+    "DotNetSitemap.AspNetCore.MvcDemo": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:2092"
+      "applicationUrl": "http://localhost:7471"
     }
   }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Linq;
-
+using DotNetSitemap.Core.Models.SitemapOptions;
 
 namespace DotNetSitemap.Core.Models.SingleSitemap
 {
@@ -14,7 +14,7 @@ namespace DotNetSitemap.Core.Models.SingleSitemap
         private Stream _outputStream;
         private string _xmlns = "http://www.sitemaps.org/schemas/sitemap/0.9";
 
-        public void Render(Stream outputStream, Uri requestUri)
+        public void Render(Stream outputStream, RequestUrl requestUrl)
         {
             // Save output stream to reuse
             _outputStream = outputStream;
@@ -35,7 +35,7 @@ namespace DotNetSitemap.Core.Models.SingleSitemap
             {
                 if (!UriHelpers.IsAbsoluteUrl(url.Loc))
                 {
-                    url.Loc = UriHelpers.BuildUrl(requestUri, url.Loc);
+                    url.Loc = UriHelpers.BuildUrl(requestUrl, url.Loc);
                 }
                 Write($"<url>");
 
@@ -47,7 +47,7 @@ namespace DotNetSitemap.Core.Models.SingleSitemap
                 //Start to render extentions
                 foreach(var extention in url.Extentions)
                 {
-                    extention.Render(outputStream, requestUri);
+                    extention.Render(outputStream, requestUrl);
                 }
 
                 Write($"</url>");

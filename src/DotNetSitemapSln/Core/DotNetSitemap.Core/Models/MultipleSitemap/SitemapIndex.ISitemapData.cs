@@ -1,4 +1,5 @@
 ﻿using DotNetSitemap.Core.Helpers;
+using DotNetSitemap.Core.Models.SitemapOptions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,7 +13,7 @@ namespace DotNetSitemap.Core.Models.MultipleSitemap
         private Stream _outputStream;
         private string _xmlns = "http://www.sitemaps.org/schemas/sitemap/0.9";
 
-        public void Render(Stream outputStream, Uri requestUri)
+        public void Render(Stream outputStream, RequestUrl requestUrl)
         {
             _outputStream = outputStream;
             Write($"<sitemapindex xmlns=\"{_xmlns}\">");
@@ -21,7 +22,7 @@ namespace DotNetSitemap.Core.Models.MultipleSitemap
             {
                 if (!UriHelpers.IsAbsoluteUrl(sitemap.Loc))
                 {
-                    sitemap.Loc = UriHelpers.BuildUrl(requestUri, sitemap.Loc);
+                    sitemap.Loc = UriHelpers.BuildUrl(requestUrl, sitemap.Loc);
                 }
 
                 Write($"<sitemap>");

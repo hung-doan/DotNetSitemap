@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DotNetSitemap.Core
@@ -9,7 +10,12 @@ namespace DotNetSitemap.Core
         Dictionary<Type, Type> _container = new Dictionary<Type, Type>();
         public void Register<src, dst>() where dst : src
         {
-            
+            // If exits, then update
+            if(_container.Any(p=>p.Key.Equals(typeof(src))))
+            {
+                _container[typeof(src)] = typeof(dst);
+                return;
+            }
             _container.Add(typeof(src), typeof(dst));
         }
 

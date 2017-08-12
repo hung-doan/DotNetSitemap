@@ -4,12 +4,25 @@
     <TargetFramework>netcoreapp1.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG;NETCOREAPP1_1</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\Shares\ISitemapHttpContextService.cs" Link="Services\ISitemapHttpContextService.cs" />
+    <Compile Include="..\..\Shares\SitemapHttpContextService.cs" Link="Services\SitemapHttpContextService.cs" />
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="1.1.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\DotNetSitemap.Core\DotNetSitemap.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

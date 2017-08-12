@@ -1,4 +1,5 @@
 ﻿using DotNetSitemap.Core.Helpers;
+using DotNetSitemap.Core.Models.SitemapOptions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,7 +25,7 @@ namespace DotNetSitemap.Core.Models.SitemapExtentions.Google.Image
             return _xmlnsPrefix;
         }
 
-        public void Render(Stream outputStream, Uri requestUri)
+        public void Render(Stream outputStream, RequestUrl requestUrl)
         {
             _outputStream = outputStream;
 
@@ -32,7 +33,7 @@ namespace DotNetSitemap.Core.Models.SitemapExtentions.Google.Image
             {
                 if (!UriHelpers.IsAbsoluteUrl(img.Loc))
                 {
-                    img.Loc = UriHelpers.BuildUrl(requestUri, img.Loc);
+                    img.Loc = UriHelpers.BuildUrl(requestUrl, img.Loc);
                 }
 
                 Write($"<image:image>");

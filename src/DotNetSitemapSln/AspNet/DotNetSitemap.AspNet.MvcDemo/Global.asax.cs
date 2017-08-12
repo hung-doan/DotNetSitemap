@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using DotNetSitemap.Core.Models.SingleSitemap;
+using DotNetSitemap.Sample;
 
 namespace DotNetSitemap.AspNet.MvcDemo
 {
@@ -20,7 +21,7 @@ namespace DotNetSitemap.AspNet.MvcDemo
         {
             DotNetSitemapConfig.Option.Register(Server, RouteTable.Routes);
 
-            DotNetSitemapConfig.Option.SetDataFunc("sitemap.xml", SitemapDataBuilder.GetAllSitemapData);
+            DotNetSitemapConfig.Option.SetDataFunc("sitemap.xml", SampleSitemapDataBuilder.GetAllSitemapData);
 
             //DotNetSitemapConfig.Option.SetDataFunc("sitemap-product-detail.xml", SitemapDataBuilder.GetProductDetailSitemapData);
             //DotNetSitemapConfig.Option.SetDataFunc("sitemap-product-list.xml", SitemapDataBuilder.GetProductListSitemapData);

@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;SITEMAP_ASPNET</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -43,6 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\Shares\ISitemapHttpContextService.cs">
+      <Link>Services\ISitemapHttpContextService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Shares\SitemapHttpContextService.cs">
+      <Link>Services\SitemapHttpContextService.cs</Link>
+    </Compile>
     <Compile Include="DotNetSitemapOptionExtentions.cs" />
     <Compile Include="Filters\LocalFileCacheProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,5 +60,6 @@
       <Name>DotNetSitemap.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

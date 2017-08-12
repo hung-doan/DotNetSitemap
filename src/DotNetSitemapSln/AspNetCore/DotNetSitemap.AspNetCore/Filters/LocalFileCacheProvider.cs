@@ -5,9 +5,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace DotNetSitemap.AspNet
+namespace DotNetSitemap.AspNetCore.Filters
 {
-    // TODO: Move to core
     public class LocalFileCacheProvider : ICacheProvider
     {
         public Stream GetFilterStream(string filePath, Stream inputStream, DotNetSitemapOption options)
@@ -68,5 +67,4 @@ namespace DotNetSitemap.AspNet
             _rootFilter.Flush();
         }
     }
-
 }
