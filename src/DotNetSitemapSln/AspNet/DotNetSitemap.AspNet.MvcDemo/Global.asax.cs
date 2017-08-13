@@ -12,16 +12,17 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using DotNetSitemap.Core.Models.SingleSitemap;
 using DotNetSitemap.Sample;
-
 namespace DotNetSitemap.AspNet.MvcDemo
 {
     public class MvcApplication : System.Web.HttpApplication
     {
         protected void Application_Start()
         {
-            DotNetSitemapConfig.Option.Register(Server, RouteTable.Routes);
+            DotNetSitemapRegistration.UseDotNetSiteMap(RouteTable.Routes, options => {
+                options.MapData("sitemap.xml", SampleSitemapDataBuilder.GetAllSitemapData);
+            });
 
-            DotNetSitemapConfig.Option.SetDataFunc("sitemap.xml", SampleSitemapDataBuilder.GetAllSitemapData);
+            //DotNetSitemapConfig.Option.SetDataFunc("sitemap.xml", SampleSitemapDataBuilder.GetAllSitemapData);
 
             //DotNetSitemapConfig.Option.SetDataFunc("sitemap-product-detail.xml", SitemapDataBuilder.GetProductDetailSitemapData);
             //DotNetSitemapConfig.Option.SetDataFunc("sitemap-product-list.xml", SitemapDataBuilder.GetProductListSitemapData);

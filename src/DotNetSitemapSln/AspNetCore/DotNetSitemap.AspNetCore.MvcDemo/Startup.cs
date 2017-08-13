@@ -37,8 +37,11 @@ namespace DotNetSitemap.AspNetCore.MvcDemo
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             
-            DotNetSitemapConfig.Option.SetDataFunc("sitemap.xml", SampleSitemapDataBuilder.GetAllSitemapData);
-            app.UseDotNetSiteMap(DotNetSitemapConfig.Option);
+            //DotNetSitemapConfig.Option.SetDataFunc("sitemap.xml", SampleSitemapDataBuilder.GetAllSitemapData);
+
+            app.UseDotNetSiteMap(options=> {
+                
+            });
 
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();

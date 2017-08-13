@@ -13,6 +13,11 @@ namespace DotNetSitemap.AspNetCore
 {
     public static class MvcApplicationBuilderExtensions
     {
+        static MvcApplicationBuilderExtensions()
+        {
+            DotNetSitemapConfig.Container.Register<ICacheProvider, LocalFileCacheProvider>();
+            DotNetSitemapConfig.Container.Register<ISitemapHttpContextService, SitemapHttpContextService>();
+        }
         private static void MyDelegate(IApplicationBuilder app)
         {
             app.Run(async context =>
@@ -22,18 +27,16 @@ namespace DotNetSitemap.AspNetCore
                 await context.Response.WriteAsync("Returning from Map");
             });
         }
-        public static IApplicationBuilder UseDotNetSiteMap(this IApplicationBuilder app, DotNetSitemapOption options)
+        public static IApplicationBuilder UseDotNetSiteMap(this IApplicationBuilder app, Action<IDotNetSitemapOption> optionAct)
         {
-            // Update container registration
-            DotNetSitemapConfig.Container.Register<ISitemapGenerator, SitemapGenerator>();
-            DotNetSitemapConfig.Container.Register<ICacheProvider, LocalFileCacheProvider>();
-            DotNetSitemapConfig.Container.Register<ISitemapHttpContextService, SitemapHttpContextService>();
+            var options = DotNetSitemapConfig.Container.Resolve<IDotNetSitemapOption>();
+            optionAct.Invoke(options);
 
             // Route
-            var registeredPaths = options.GetAllDataFuncPaths();
+            var registeredPaths = options.GetSitemapIndexPaths();
 
             // If there is no sitemap.xml registered yet, then register sitemap.xml
-            var sitemapPath = options.GetSitemapPath();
+            var sitemapPath = options.SitemapPath;
             if (!registeredPaths.Any(p => p == sitemapPath))
             {
                 app.Map($"/{sitemapPath}", MyDelegate);
@@ -44,7 +47,10 @@ namespace DotNetSitemap.AspNetCore
                 app.Map($"/{path}", MyDelegate);
             }
 
+            DotNetSitemapConfig.SetOption(options);
             return app;
         }
+
+        
     }
 }

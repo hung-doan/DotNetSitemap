@@ -49,7 +49,7 @@
     <Compile Include="..\..\Shares\SitemapHttpContextService.cs">
       <Link>Services\SitemapHttpContextService.cs</Link>
     </Compile>
-    <Compile Include="DotNetSitemapOptionExtentions.cs" />
+    <Compile Include="DotNetSitemapRegistration.cs" />
     <Compile Include="Filters\LocalFileCacheProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SitemapHandler.cs" />

@@ -22,6 +22,7 @@ namespace DotNetSitemap.Core.Services
 
         public void ProcessRequest(HttpContext context)
         {
+            var options = DotNetSitemapConfig.Option;
 
             // Get relative path
             // Relative path must not staring  with /
@@ -32,7 +33,7 @@ namespace DotNetSitemap.Core.Services
 #endif
 
             var cacheProvider = DotNetSitemapConfig.Container.Resolve<ICacheProvider>();
-            var cachePath = Path.Combine(DotNetSitemapConfig.Option.Cache.Location, path);
+
 
             context.Response.ContentType = "application/xml";
 
@@ -40,12 +41,20 @@ namespace DotNetSitemap.Core.Services
             // and It was cached
             // and It is not expired
             // then we return the cached version
-            if (DotNetSitemapConfig.Option.IsCacheable()
-                && cacheProvider.IsCached(cachePath)
-                && !cacheProvider.IsExpired(cachePath, DotNetSitemapConfig.Option))
+            if (options.Cacheable)
             {
-                HandleCache(cachePath, context, cacheProvider);
-                return;
+                var cachePath = Path.Combine(options.CacheLocation, path);
+                if (cacheProvider.IsCached(cachePath)
+                    && !cacheProvider.IsExpired(cachePath, options))
+                {
+                    HandleCache(cachePath, context, cacheProvider);
+                    return;
+                }
+
+                // Set cache handler
+                context.Response.Filter = cacheProvider.GetFilterStream(path,
+               context.Response.Filter,
+               options);
             }
 
             // If current request is not cachable
@@ -64,11 +73,9 @@ namespace DotNetSitemap.Core.Services
             var generator = DotNetSitemapConfig.Container.Resolve<ISitemapGenerator>();
 
 #if SITEMAP_ASPNET
-            context.Response.Filter = cacheProvider.GetFilterStream(cachePath,
-               context.Response.Filter,
-               DotNetSitemapConfig.Option);
 
-            generator.Render(data, context.Response.OutputStream, new RequestUrl() {
+            generator.Render(data, context.Response.OutputStream, new RequestUrl()
+            {
                 Scheme = context.Request.Url.Scheme,
                 Host = context.Request.Url.Host,
                 Port = context.Request.Url.Port,
@@ -76,7 +83,7 @@ namespace DotNetSitemap.Core.Services
 #else
             //context.Response.Filter = cacheProvider.GetFilterStream(cachePath,
             //   context.Response.Filter,
-            //   DotNetSitemapConfig.Option);
+            //   options);
 
             generator.Render(data, context.Response.Body, new RequestUrl() {
                 Scheme = context.Request.Scheme,
@@ -101,16 +108,16 @@ namespace DotNetSitemap.Core.Services
 
         private ISitemapData GetSitemapData(string path, ICacheProvider cacheProvider)
         {
-            ISitemapData result = DotNetSitemapConfig.Option.GetData(path);
+            ISitemapData result = DotNetSitemapConfig.Option.GetMapData(path);
 
             // Generate sitemap.xml if there is any SitemapIndex
             // If there is no route for path and requesting for sitemap.xml
             // Then get all SitemapIndex if there is any.
 
             if (result == null
-                && path == DotNetSitemapConfig.Option.GetSitemapPath())
+                && path == DotNetSitemapConfig.Option.SitemapPath)
             {
-                var indexLocs = DotNetSitemapConfig.Option.GetSitemapIndexLocs();
+                var indexLocs = DotNetSitemapConfig.Option.GetSitemapIndexPaths();
                 if (indexLocs.Any())
                 {
                     // If this is sitemap.xml

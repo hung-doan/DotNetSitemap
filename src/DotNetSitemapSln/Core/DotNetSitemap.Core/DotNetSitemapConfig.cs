@@ -9,32 +9,31 @@ namespace DotNetSitemap.Core
 {
     public class DotNetSitemapConfig
     {
-        private static readonly DotNetSitemapOption _option;
-        private static IDotNetSitemapContainer _container;
-        
+
         static DotNetSitemapConfig()
         {
-            _option = new DotNetSitemapOption();
+            //Use default container
             _container = new DotNetSitemapContainer();
-            
+
+            _container.Register<ISitemapGenerator, SitemapGenerator>();
+            _container.Register<IDotNetSitemapOption, DotNetSitemapOption>();            
+
         }
-        
-        public static DotNetSitemapOption Option => _option;
+
+        private static IDotNetSitemapOption _option;
+        private static IDotNetSitemapContainer _container;
+
+        public static IDotNetSitemapOption Option => _option;
         public static IDotNetSitemapContainer Container => _container;
-        /// <summary>
-        /// Check if able to cache sitemap pages,
-        /// Sitemap is cachable if : Cache dir & cache timeout were initialized.
-        /// </summary>
-        /// <returns></returns>
-        public static bool IsCachable()
+
+        public static void SetOption(IDotNetSitemapOption option)
         {
-            return Option._cacheOption != null;
+            _option = option;
         }
         public static void SetContainer(IDotNetSitemapContainer container)
         {
             _container = container;
         }
-        
-        
+
     }
 }

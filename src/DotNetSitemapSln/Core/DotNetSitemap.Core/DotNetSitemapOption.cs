@@ -10,36 +10,23 @@ using System.Text.RegularExpressions;
 
 namespace DotNetSitemap.Core
 {
-    public class DotNetSitemapOption
+    public partial class DotNetSitemapOption : IDotNetSitemapOption
     {
         public DotNetSitemapOption()
         {
-            SitemapDataFunc = null;
-            _cacheOption = null;
-            _dataFunc = new Dictionary<string, Func<ISitemapData>>();
+            _dataMaps = new Dictionary<string, Func<ISitemapData>>();
+            SitemapPath = "sitemap.xml";
+            SitemapIndexPath = "sitemap-*.xml";
         }
+        Dictionary<string, Func<ISitemapData>> _dataMaps;
 
-        internal string _sitemapPath = "sitemap.xml";
-        private static string _sitemapIndexPath = "sitemap-*.xml";
-
-        internal Func<ISitemapData> SitemapDataFunc;
-        internal SitemapCacheOption _cacheOption;
-        Dictionary<string, Func<ISitemapData>> _dataFunc;
-        public SitemapCacheOption Cache => _cacheOption;
-
-
-        public void SetCache(SitemapCacheOption option)
-        {
-            _cacheOption = option;
-        }
-
-
-        public void SetDataFunc(Func<ISitemapData> sitemapDataFunc)
-        {
-            _dataFunc.Add("sitemap.xml", sitemapDataFunc);
-
-        }
-        public void SetDataFunc(string path, Func<ISitemapData> sitemapDataFunc)
+        public string CacheLocation { get; set; }
+        public TimeSpan? CacheTimeOut { get; set; }
+        public string SitemapPath { get; set; }
+        public string SitemapIndexPath { get; set; }
+        public Dictionary<string, Func<ISitemapData>> DataMaps => _dataMaps;
+        public bool Cacheable => CacheTimeOut != null && CacheLocation != null;
+        public IDotNetSitemapOption MapData(string path, Func<ISitemapData> sitemapDataFunc)
         {
             if (!DataFuncPathFormatIsValid(path))
             {
@@ -50,53 +37,23 @@ namespace DotNetSitemap.Core
             if (!DataFuncPathRouteIsValid(path))
             {
                 throw new Exception("Sitemap path must be formated as " +
-                    $"{_sitemapPath} or {_sitemapIndexPath}");
+                    $"{SitemapPath} or {SitemapIndexPath}");
             }
-            _dataFunc.Add(path, sitemapDataFunc);
+            _dataMaps.Add(path, sitemapDataFunc);
 
-
+            return this;
         }
-        public ISitemapData GetData(string path)
+        public IEnumerable<string> GetSitemapIndexPaths()
         {
-            if (!_dataFunc.ContainsKey(path))
+            return _dataMaps.Where(p => p.Key != SitemapPath).Select(p => p.Key);
+        }
+        public ISitemapData GetMapData(string path)
+        {
+            if (!_dataMaps.ContainsKey(path))
             {
                 return null;
             }
-            return _dataFunc[path]();
-        }
-
-        /// <summary>
-        /// Get all registered function path
-        /// </summary>
-        /// <returns></returns>
-        public List<string> GetAllDataFuncPaths()
-        {
-            return _dataFunc.Select(p=>p.Key).ToList();
-        }
-        public bool IsCacheable()
-        {
-            return _cacheOption != null && _cacheOption.TimeOut != null;
-        }
-
-        public void SetSitemapPath(string path)
-        {
-            _sitemapPath = path;
-        }
-        public void SetSitemapIndexPath(string path)
-        {
-            _sitemapIndexPath = path;
-        }
-        public string GetSitemapPath()
-        {
-            return _sitemapPath;
-        }
-        public string GetSitemapIndexPath()
-        {
-            return _sitemapIndexPath;
-        }
-        public List<string> GetSitemapIndexLocs()
-        {
-            return _dataFunc.Where(p => p.Key != _sitemapPath).Select(p => p.Key).ToList();
+            return _dataMaps[path]();
         }
 
         #region helpers
@@ -129,8 +86,8 @@ namespace DotNetSitemap.Core
         /// <returns></returns>
         private bool DataFuncPathRouteIsValid(string path)
         {
-            var siteMapRegex = _sitemapPath.Replace(".", @"\.").Replace("*", ".*");
-            var siteMapIndexRegex = _sitemapIndexPath.Replace(".", @"\.").Replace("*", ".*");
+            var siteMapRegex = SitemapPath.Replace(".", @"\.").Replace("*", ".*");
+            var siteMapIndexRegex = SitemapIndexPath.Replace(".", @"\.").Replace("*", ".*");
             var match = Regex.Match(path, $@"({siteMapRegex}|{siteMapIndexRegex})");
             if (match.Success)
             {
@@ -139,7 +96,7 @@ namespace DotNetSitemap.Core
 
             return false;
         }
-
+        
         #endregion helpers
     }
 }

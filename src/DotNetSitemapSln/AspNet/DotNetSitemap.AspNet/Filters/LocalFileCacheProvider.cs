@@ -10,7 +10,7 @@ namespace DotNetSitemap.AspNet
     // TODO: Move to core
     public class LocalFileCacheProvider : ICacheProvider
     {
-        public Stream GetFilterStream(string filePath, Stream inputStream, DotNetSitemapOption options)
+        public Stream GetFilterStream(string filePath, Stream inputStream, IDotNetSitemapOption options)
         {
             if (!File.Exists(filePath))
             {
@@ -25,11 +25,11 @@ namespace DotNetSitemap.AspNet
             return File.Exists(filePath);
         }
 
-        public bool IsExpired(string filePath, DotNetSitemapOption options)
+        public bool IsExpired(string filePath, IDotNetSitemapOption options)
         {
             var lastWrite = GetLastModifiedDateUtc(filePath);
 
-            return lastWrite.Add(options.Cache.TimeOut.Value).CompareTo(DateTimeOffset.UtcNow) < 0;
+            return lastWrite.Add(options.CacheTimeOut.Value).CompareTo(DateTimeOffset.UtcNow) < 0;
         }
         public DateTimeOffset GetLastModifiedDateUtc(string filePath)
         {
@@ -46,10 +46,10 @@ namespace DotNetSitemap.AspNet
     public class LocalFileCacheStreamFilter : FileStream
     {
         private Stream _rootFilter;
-        private DotNetSitemapOption _options;
+        private IDotNetSitemapOption _options;
         public LocalFileCacheStreamFilter(Stream rootFilter
             , string filePath
-            , DotNetSitemapOption options)
+            , IDotNetSitemapOption options)
             : base(filePath, FileMode.Create)
         {
             _rootFilter = rootFilter;
