@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -9,8 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\Shares\ISitemapHttpContextService.cs" Link="Services\ISitemapHttpContextService.cs" />
-    <Compile Include="..\..\Shares\SitemapHttpContextService.cs" Link="Services\SitemapHttpContextService.cs" />
+    <Compile Remove="Filters\**" />
+    <Compile Remove="Services\**" />
+    <EmbeddedResource Remove="Filters\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <None Remove="Filters\**" />
+    <None Remove="Services\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,10 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\DotNetSitemap.Core\DotNetSitemap.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

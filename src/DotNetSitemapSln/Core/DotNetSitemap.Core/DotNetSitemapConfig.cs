@@ -1,4 +1,5 @@
-﻿using DotNetSitemap.Core.Cache;
+﻿using DotNetSitemap.Core.Middlewares.Caches;
+using DotNetSitemap.Core.Middlewares.Renders;
 using DotNetSitemap.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,8 @@ namespace DotNetSitemap.Core
             _container = new DotNetSitemapContainer();
 
             _container.Register<ISitemapGenerator, SitemapGenerator>();
-            _container.Register<IDotNetSitemapOption, DotNetSitemapOption>();            
+            _container.Register<IDotNetSitemapOption, DotNetSitemapOption>();
+            _container.Register<ICacheProvider, LocalFileCacheMiddleware>();
 
         }
 

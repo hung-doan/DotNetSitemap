@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Linq;
-using DotNetSitemap.Core.Models.SitemapOptions;
+using DotNetSitemap.Core.Middlewares;
 
 namespace DotNetSitemap.Core.Models.SingleSitemap
 {

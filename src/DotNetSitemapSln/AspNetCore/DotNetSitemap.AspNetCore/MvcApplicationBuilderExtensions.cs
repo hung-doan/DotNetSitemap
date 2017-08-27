@@ -1,7 +1,7 @@
-﻿using DotNetSitemap.AspNetCore.Filters;
-using DotNetSitemap.Core;
-using DotNetSitemap.Core.Cache;
-using DotNetSitemap.Core.Services;
+﻿using DotNetSitemap.Core;
+using DotNetSitemap.Core.Middlewares;
+using DotNetSitemap.Core.Middlewares.Caches;
+using DotNetSitemap.Core.Middlewares.Renders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -13,18 +13,33 @@ namespace DotNetSitemap.AspNetCore
 {
     public static class MvcApplicationBuilderExtensions
     {
-        static MvcApplicationBuilderExtensions()
-        {
-            DotNetSitemapConfig.Container.Register<ICacheProvider, LocalFileCacheProvider>();
-            DotNetSitemapConfig.Container.Register<ISitemapHttpContextService, SitemapHttpContextService>();
-        }
-        private static void MyDelegate(IApplicationBuilder app)
+  
+        private static void SitemapDelegate(IApplicationBuilder app)
         {
             app.Run(async context =>
             {
-                var sitemapService = DotNetSitemapConfig.Container.Resolve<ISitemapHttpContextService>();
-                sitemapService.ProcessRequest(context);
-                await context.Response.WriteAsync("Returning from Map");
+                var middlewareContext = new MiddlewareContext()
+                {
+                    OutputStream = context.Response.Body,
+                    HttpDelegate = new HttpDelegate(context),
+                    RequestUrl = new RequestUrl
+                    {
+                        Host = context.Request.Host.Host,
+                        Port = context.Request.Host.Port.Value,
+                        Scheme = context.Request.Scheme,
+                        Path = context.Request.PathBase.Value,
+                        DataPath = context.Request.PathBase.Value.Substring(1) // data path must not staring  with /
+                    }
+                };
+                context.Response.ContentType = "application/xml";
+
+                var cacheMiddleware = DotNetSitemapConfig.Container.Resolve<ICacheProvider>() as ISitemapMiddleware;
+                SitemapMiddlewareHandler.Add(cacheMiddleware);
+                SitemapMiddlewareHandler.Add<SitemapGeneratorMiddleware>();
+
+                SitemapMiddlewareHandler.Invoke(middlewareContext);
+
+
             });
         }
         public static IApplicationBuilder UseDotNetSiteMap(this IApplicationBuilder app, Action<IDotNetSitemapOption> optionAct)
@@ -39,12 +54,12 @@ namespace DotNetSitemap.AspNetCore
             var sitemapPath = options.SitemapPath;
             if (!registeredPaths.Any(p => p == sitemapPath))
             {
-                app.Map($"/{sitemapPath}", MyDelegate);
+                app.Map($"/{sitemapPath}", SitemapDelegate);
             }
 
             foreach (var path in registeredPaths)
             {
-                app.Map($"/{path}", MyDelegate);
+                app.Map($"/{path}", SitemapDelegate);
             }
 
             DotNetSitemapConfig.SetOption(options);

@@ -1,4 +1,4 @@
-﻿using DotNetSitemap.Core.Models.SitemapOptions;
+﻿using DotNetSitemap.Core.Middlewares;
 using System;
 using System.Collections.Generic;
 using System.Text;

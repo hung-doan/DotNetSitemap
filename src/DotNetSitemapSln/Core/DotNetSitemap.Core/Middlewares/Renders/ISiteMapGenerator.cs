@@ -1,11 +1,11 @@
 ﻿using DotNetSitemap.Core.Models;
-using DotNetSitemap.Core.Models.SitemapOptions;
+using DotNetSitemap.Core.Middlewares;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace DotNetSitemap.Core
+namespace DotNetSitemap.Core.Middlewares.Renders
 {
     public interface ISitemapGenerator
     {

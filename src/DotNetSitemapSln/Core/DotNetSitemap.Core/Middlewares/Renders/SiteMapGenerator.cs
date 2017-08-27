@@ -5,9 +5,9 @@ using System.IO;
 using System.Text;
 using DotNetSitemap.Core.Models.MultipleSitemap;
 using DotNetSitemap.Core.Models.SingleSitemap;
-using DotNetSitemap.Core.Models.SitemapOptions;
+using DotNetSitemap.Core.Middlewares;
 
-namespace DotNetSitemap.Core
+namespace DotNetSitemap.Core.Middlewares.Renders
 {
     public class SitemapGenerator : ISitemapGenerator
     {

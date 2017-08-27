@@ -34,6 +34,11 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO" />
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,14 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Shares\ISitemapHttpContextService.cs">
-      <Link>Services\ISitemapHttpContextService.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Shares\SitemapHttpContextService.cs">
-      <Link>Services\SitemapHttpContextService.cs</Link>
-    </Compile>
     <Compile Include="DotNetSitemapRegistration.cs" />
-    <Compile Include="Filters\LocalFileCacheProvider.cs" />
+    <Compile Include="HttpDelegate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SitemapHandler.cs" />
   </ItemGroup>
@@ -60,6 +59,8 @@
       <Name>DotNetSitemap.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

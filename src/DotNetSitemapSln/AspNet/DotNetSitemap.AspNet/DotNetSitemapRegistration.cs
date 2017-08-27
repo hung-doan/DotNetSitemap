@@ -1,27 +1,20 @@
 ﻿using DotNetSitemap.Core;
 using System;
 using System.Web.Routing;
-using DotNetSitemap.Core.Cache;
 using System.Web;
 using System.Xml;
 using System.Configuration;
 using System.Web.Configuration;
 using System.Linq;
 using System.Collections.Generic;
-using DotNetSitemap.Core.Services;
+using DotNetSitemap.Core.Middlewares.Caches;
 
 namespace DotNetSitemap.AspNet
 {
     public static class DotNetSitemapRegistration
     {
-
-        static DotNetSitemapRegistration()
-        {
-            DotNetSitemapConfig.Container.Register<ISitemapHttpContextService, SitemapHttpContextService>();
-            DotNetSitemapConfig.Container.Register<ICacheProvider, LocalFileCacheProvider>();
-        }
         public static void UseDotNetSiteMap(RouteCollection routes
-            , Action<IDotNetSitemapOption> configureRoutes = null)
+            , Action<IDotNetSitemapOption> configureRoutes)
         {
             var option = DotNetSitemapConfig.Container.Resolve<IDotNetSitemapOption>();
             if(configureRoutes != null)

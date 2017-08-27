@@ -1,8 +1,5 @@
-﻿using DotNetSitemap.Core.Models.SitemapOptions;
-using System;
-using System.Collections.Generic;
+﻿using DotNetSitemap.Core.Middlewares;
 using System.IO;
-using System.Text;
 
 namespace DotNetSitemap.Core.Models
 {

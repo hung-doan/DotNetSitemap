@@ -1,6 +1,6 @@
 ﻿using DotNetSitemap.AspNet;
 using DotNetSitemap.Core;
-using DotNetSitemap.Core.Cache;
+
 using DotNetSitemap.Core.Constrains;
 using DotNetSitemap.Core.Models;
 using System;
@@ -19,19 +19,20 @@ namespace DotNetSitemap.AspNet.MvcDemo
         protected void Application_Start()
         {
             DotNetSitemapRegistration.UseDotNetSiteMap(RouteTable.Routes, options => {
-                options.MapData("sitemap.xml", SampleSitemapDataBuilder.GetAllSitemapData);
+                //options.MapData("sitemap.xml",...); // Mean you are using <UrlSet>
+                //options.MapData("sitemap-[your custom].xml",...); // Mean you are using <Sitemapindex>
+                
+                options.MapData("sitemap.xml", SampleSitemapDataBuilder.GetDataWithManualUrl);
+                options.MapData("sitemap-with-manual-url.xml", SampleSitemapDataBuilder.GetDataWithManualUrl);
+                options.MapData("sitemap-with-auto-url.xml", SampleSitemapDataBuilder.GetDataWithUrlGeneratedByMvcAction);
+                options.MapData("sitemap-with-google-image-extention.xml", SampleSitemapDataBuilder.GetDataWithGoogleImageExtention);
+
+                //Setting cache
+                options.CacheTimeOut = new TimeSpan(0, 1, 0);
+                options.CacheLocation = Server.MapPath("~/App_Data/cache_sitemap");
             });
 
-            //DotNetSitemapConfig.Option.SetDataFunc("sitemap.xml", SampleSitemapDataBuilder.GetAllSitemapData);
-
-            //DotNetSitemapConfig.Option.SetDataFunc("sitemap-product-detail.xml", SitemapDataBuilder.GetProductDetailSitemapData);
-            //DotNetSitemapConfig.Option.SetDataFunc("sitemap-product-list.xml", SitemapDataBuilder.GetProductListSitemapData);
-
-            ////Setting up cache
-            //DotNetSitemapConfig.Option.Cache.TimeOut = new TimeSpan(0, 1, 0);
-            //DotNetSitemapConfig.Option.Cache.Location = Server.MapPath("~/App_Data/cache_sitemap");
-
-
+            
 
 
             AreaRegistration.RegisterAllAreas();
