@@ -49,7 +49,6 @@ namespace DotNetSitemap.AspNetCore.MvcDemo
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
             }
             else
             {
