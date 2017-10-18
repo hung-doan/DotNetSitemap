@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DotNetSitemap.Core.Models.SingleSitemap;
+using DotNetSitemap.Core.Middlewares.Renders;
 
 namespace DotNetSitemap.Core.Test
 {
